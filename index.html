@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaliqForge | Industrial Metal Weight Calculator</title>
+  <meta name="description" content="Calculate accurate weights for Hex Bolt (Full Thread), Allen Bolt (Full Thread), Studs, and Grub Screws across MS, SS, Copper, Brass, Aluminium, Titanium, and Zinc.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .technical-grid {
+      background-image: radial-gradient(rgba(14, 116, 144, 0.08) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+  </style>
+  <link rel="canonical" href="https://metaliqforge.in/index.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "MetaliqForge Fastener Weight Calculator",
+    "url": "https://metaliqforge.in/index.html",
+    "description": "Industrial metal weight calculator for hex bolts, allen bolts, studs, and grub screws across carbon steel, stainless steel, brass, copper, aluminium, and titanium.",
+    "applicationCategory": "EngineeringApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center space-x-2.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform duration-200">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l7 4v6l-7 4-7-4V6z"/>
+            <path d="M12 16v6"/>
+            <path d="M8 18h8"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-slate-900 leading-none">
+            Metaliq<span class="text-sky-600">Forge</span>
+          </span>
+          <span class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5">INDUSTRIAL METAL WEIGHT CALCULATOR</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav & Dropdown Menu -->
+      <div class="flex items-center gap-3">
+        <nav class="hidden md:flex items-center space-x-1">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-sky-600 bg-sky-50 transition-colors">Home</a>
+          <a href="resources.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Resources</a>
+          <a href="articles.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Articles</a>
+          <a href="about.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">About Us</a>
+          <a href="contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Contact Us</a>
+        </nav>
+
+        <div class="relative">
+          <button id="menuDropdownBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all focus:outline-none">
+            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+            </svg>
+            <span>Pages Menu</span>
+            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+
+          <div id="menuDropdownMenu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-200/80 py-2 z-50">
+            <div class="px-3 py-1.5 border-b border-slate-100">
+              <span class="text-xs uppercase font-bold text-slate-400 tracking-wider">MetaliqForge Pages</span>
+            </div>
+            <a href="index.html" class="flex items-center px-4 py-2.5 text-sm text-sky-700 bg-sky-50 font-medium">
+              <span class="w-2 h-2 rounded-full bg-sky-500 mr-2.5"></span> Home (Calculator)
+            </a>
+            <a href="resources.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Resources & Densities
+            </a>
+            <a href="articles.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Technical Articles
+            </a>
+            <a href="privacy.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Privacy Policy
+            </a>
+            <a href="disclaimer.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Disclaimer
+            </a>
+            <a href="contact.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Contact Us
+            </a>
+            <a href="terms.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Terms of Service
+            </a>
+            <div class="border-t border-slate-100 my-1"></div>
+            <a href="about.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2.5"></span> About Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 text-white text-sm px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2">
+    <svg class="w-4 h-4 text-emerald-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+    </svg>
+    <span id="toastMsg">Notification message</span>
+  </div>
+
+  <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+    <!-- Intro Hero Banner -->
+    <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-sky-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 max-w-3xl">
+        <h1 id="heroTitle" class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-2 leading-tight">Hex Bolt (Full Thread) Weight Calculator</h1>
+        <p id="heroDesc" class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Select a fastener type below to calculate accurate approximate weights across Metric and Imperial specifications for multiple industrial metals.
+        </p>
+      </div>
+    </section>
+
+    <!-- 4 Fastener Selector Buttons -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+      <button type="button" onclick="setFastenerType('hex-bolt')" id="btn-hex-bolt" class="fastener-tab-btn flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all duration-200 bg-white border-sky-600 shadow-md text-sky-700 group cursor-pointer">
+        <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 2h10l3 5-3 5H7L4 7z"/>
+            <rect x="9" y="12" width="6" height="10" rx="1"/>
+            <line x1="9" y1="13" x2="15" y2="13"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+            <line x1="9" y1="17" x2="15" y2="17"/>
+            <line x1="9" y1="19" x2="15" y2="19"/>
+            <line x1="9" y1="21" x2="15" y2="21"/>
+          </svg>
+        </div>
+        <span class="text-sm font-bold">Hex Bolt</span>
+        <span class="text-[11px] text-slate-500 font-mono">Full Thread</span>
+      </button>
+
+      <button type="button" onclick="setFastenerType('allen-bolt')" id="btn-allen-bolt" class="fastener-tab-btn flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all duration-200 bg-white border-slate-200 hover:border-sky-300 text-slate-700 group cursor-pointer">
+        <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="2" width="12" height="7" rx="1.5"/>
+            <polygon points="10,4.5 14,4.5 15,6.5 12,8 9,6.5" fill="currentColor"/>
+            <rect x="9" y="9" width="6" height="13" rx="1"/>
+            <line x1="9" y1="11" x2="15" y2="11"/>
+            <line x1="9" y1="13" x2="15" y2="13"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+            <line x1="9" y1="17" x2="15" y2="17"/>
+            <line x1="9" y1="19" x2="15" y2="19"/>
+            <line x1="9" y1="21" x2="15" y2="21"/>
+          </svg>
+        </div>
+        <span class="text-sm font-bold">Allen Bolt</span>
+        <span class="text-[11px] text-slate-500 font-mono">Full Thread</span>
+      </button>
+
+      <button type="button" onclick="setFastenerType('studs')" id="btn-studs" class="fastener-tab-btn flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all duration-200 bg-white border-slate-200 hover:border-sky-300 text-slate-700 group cursor-pointer">
+        <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="2" width="8" height="20" rx="1"/>
+            <line x1="8" y1="5" x2="16" y2="5"/>
+            <line x1="8" y1="8" x2="16" y2="8"/>
+            <line x1="8" y1="11" x2="16" y2="11"/>
+            <line x1="8" y1="14" x2="16" y2="14"/>
+            <line x1="8" y1="17" x2="16" y2="17"/>
+            <line x1="8" y1="20" x2="16" y2="20"/>
+          </svg>
+        </div>
+        <span class="text-sm font-bold">Studs</span>
+        <span class="text-[11px] text-slate-500 font-mono">Threaded Rod</span>
+      </button>
+
+      <button type="button" onclick="setFastenerType('grub-screw')" id="btn-grub-screw" class="fastener-tab-btn flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all duration-200 bg-white border-slate-200 hover:border-sky-300 text-slate-700 group cursor-pointer">
+        <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="7" y="4" width="10" height="16" rx="2"/>
+            <polygon points="10,6 14,6 15,8 12,9.5 9,8" fill="currentColor"/>
+            <line x1="7" y1="11" x2="17" y2="11"/>
+            <line x1="7" y1="14" x2="17" y2="14"/>
+            <line x1="7" y1="17" x2="17" y2="17"/>
+          </svg>
+        </div>
+        <span class="text-sm font-bold">Grub Screw</span>
+        <span class="text-[11px] text-slate-500 font-mono">Set Screw</span>
+      </button>
+    </div>
+
+    <!-- Main Calculator Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Left: Form -->
+      <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
+          <div>
+            <h2 id="calcCardTitle" class="text-lg font-bold text-slate-900 flex items-center gap-2">Hex Bolt (Full Thread) Parameters</h2>
+            <p id="calcCardSub" class="text-xs text-slate-500">Configure size, length, material and optional hex nuts</p>
+          </div>
+          <div class="bg-slate-100 p-1 rounded-xl flex items-center border border-slate-200">
+            <button id="unitMetricBtn" type="button" onclick="setUnitSystem('mm')" class="px-3 py-1 rounded-lg text-xs font-bold transition-all bg-sky-600 text-white shadow-sm cursor-pointer">Metric (mm)</button>
+            <button id="unitInchBtn" type="button" onclick="setUnitSystem('inch')" class="px-3 py-1 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition-all cursor-pointer">Imperial (inch)</button>
+          </div>
+        </div>
+
+        <div class="space-y-5">
+          <div>
+            <div class="flex justify-between items-center mb-1.5">
+              <label for="materialSelect" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider">Material</label>
+              <a href="resources.html" class="text-xs text-sky-600 hover:underline font-medium">View Densities Table &rarr;</a>
+            </div>
+            <select id="materialSelect" onchange="calculateWeight()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all">
+              <option value="7.85">MS / Carbon Steel (7.85 g/cm³)</option>
+              <option value="8.00">Stainless Steel 304 (8.00 g/cm³)</option>
+              <option value="8.00_316">Stainless Steel 316 (8.00 g/cm³)</option>
+              <option value="8.96">Copper (8.96 g/cm³)</option>
+              <option value="8.50">Brass (8.50 g/cm³)</option>
+              <option value="2.70">Aluminium (2.70 g/cm³)</option>
+              <option value="4.51">Titanium (4.51 g/cm³)</option>
+              <option value="7.14">Zinc (7.14 g/cm³)</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="diameterSelect" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Diameter (<span id="diaUnitLabel">mm</span>)</label>
+              <select id="diameterSelect" onchange="calculateWeight()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"></select>
+            </div>
+            <div id="lengthContainer">
+              <label for="lengthSelect" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5"><span id="lengthFieldLabel">Nominal Length</span> (<span id="lenUnitLabel">mm</span>)</label>
+              <select id="lengthSelect" onchange="calculateWeight()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"></select>
+            </div>
+          </div>
+
+          <div id="nutSectionCard" class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+            <label for="nutCountSelect" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nut Quantity (Per Fastener)</label>
+            <select id="nutCountSelect" onchange="calculateWeight()" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all">
+              <option value="0">0 (No Nut - Body Only)</option>
+              <option value="1" selected>1 Nut</option>
+              <option value="2">2 Nuts (Double Nut / Stud Assembly)</option>
+              <option value="3">3 Nuts</option>
+              <option value="4">4 Nuts</option>
+            </select>
+            <p class="text-[11px] text-slate-500 mt-1.5">Select 0 for fastener weight only, or choose 1-4 nuts to include them in the total unit weight.</p>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label for="quantityInput" class="text-xs font-semibold text-slate-700 uppercase tracking-wider">Total Quantity (Pcs)</label>
+              <div class="flex gap-1.5">
+                <button type="button" onclick="setQuantity(1)" class="px-2 py-0.5 text-xs rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 font-mono cursor-pointer">1</button>
+                <button type="button" onclick="setQuantity(10)" class="px-2 py-0.5 text-xs rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 font-mono cursor-pointer">10</button>
+                <button type="button" onclick="setQuantity(100)" class="px-2 py-0.5 text-xs rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 font-mono cursor-pointer">100</button>
+                <button type="button" onclick="setQuantity(500)" class="px-2 py-0.5 text-xs rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 font-mono cursor-pointer">500</button>
+                <button type="button" onclick="setQuantity(1000)" class="px-2 py-0.5 text-xs rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 font-mono cursor-pointer">1000</button>
+              </div>
+            </div>
+            <input type="number" id="quantityInput" min="1" max="1000000" value="1" oninput="calculateWeight()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all">
+          </div>
+
+          <!-- Results Box with Approx notation -->
+          <div class="bg-gradient-to-br from-slate-900 to-sky-950 text-white rounded-2xl p-5 shadow-lg border border-slate-800 mt-4">
+            <div class="flex items-center justify-between mb-3 border-b border-slate-800/80 pb-3">
+              <span class="text-xs uppercase font-bold tracking-wider text-sky-400">Approx. Weight Calculation Summary</span>
+              <span id="summaryBadge" class="text-xs font-mono bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded-full border border-sky-400/30">M12 x 50mm</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-2 text-center">
+              <div class="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium">Approx. / Unit</div>
+                <div id="singleWeightG" class="text-xl sm:text-2xl font-black text-white font-mono mt-1">~ 0.00</div>
+                <div class="text-[10px] text-sky-300 font-mono">grams</div>
+              </div>
+              <div class="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium">Approx. / Unit (kg)</div>
+                <div id="singleWeightKg" class="text-xl sm:text-2xl font-black text-amber-300 font-mono mt-1">~ 0.0000</div>
+                <div class="text-[10px] text-amber-200/80 font-mono">kg / pc</div>
+              </div>
+              <div class="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium">Approx. Total (kg)</div>
+                <div id="totalWeightKg" class="text-xl sm:text-2xl font-black text-emerald-400 font-mono mt-1">~ 0.00</div>
+                <div class="text-[10px] text-emerald-300 font-mono">kilograms</div>
+              </div>
+              <div class="bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
+                <div class="text-[11px] uppercase tracking-wider text-slate-400 font-medium">Approx. Total (lbs)</div>
+                <div id="totalWeightLbs" class="text-xl sm:text-2xl font-black text-sky-200 font-mono mt-1">~ 0.00</div>
+                <div class="text-[10px] text-sky-300 font-mono">pounds</div>
+              </div>
+            </div>
+
+            <div id="breakdownSection" class="mt-4 pt-3 border-t border-slate-800 text-xs text-slate-300 grid grid-cols-3 gap-2 text-center font-mono">
+              <div>Head (Approx): <span id="headWeightTxt" class="text-white font-semibold">~ 0.0g</span></div>
+              <div>Body (Approx): <span id="shankWeightTxt" class="text-white font-semibold">~ 0.0g</span></div>
+              <div>Nut(s) (Approx): <span id="nutWeightTxt" class="text-white font-semibold">~ 0.0g</span></div>
+            </div>
+
+            <div class="mt-4 pt-3 flex flex-wrap gap-2.5">
+              <button type="button" onclick="copyCalculationSummary()" class="flex-1 inline-flex items-center justify-center gap-1.5 bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs py-2.5 px-4 rounded-xl transition-all shadow-md cursor-pointer">
+                <svg class="w-4 h-4 fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                Copy Summary
+              </button>
+              <button type="button" onclick="window.print()" class="inline-flex items-center justify-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs py-2.5 px-4 rounded-xl border border-slate-700 transition-all cursor-pointer">
+                <svg class="w-4 h-4 fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                Print Specification
+              </button>
+            </div>
+
+            <!-- On-Screen Legal Protection Note -->
+            <div class="mt-3 pt-2 text-[10.5px] text-slate-400 text-center leading-relaxed border-t border-slate-800/60">
+              Theoretical approx values based on ISO/DIN standards. Physical weights may vary with manufacturing tolerances. 
+              <a href="disclaimer.html" class="text-sky-400 hover:underline">Read full disclaimer</a>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Technical Sketch Diagram -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between mb-3">
+            <h3 id="sketchTitle" class="text-sm font-bold text-slate-900 flex items-center gap-1.5 uppercase tracking-wider">Fastener Technical Sketch</h3>
+            <span id="standardBadge" class="text-[11px] bg-slate-100 text-slate-600 font-mono px-2 py-0.5 rounded-md">Full Thread</span>
+          </div>
+
+          <div id="svgContainer" class="technical-grid bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden min-h-[220px]"></div>
+
+          <div class="mt-4 bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 space-y-2 text-xs">
+            <div class="flex justify-between items-center text-slate-600">
+              <span class="font-medium">Active Diameter:</span>
+              <span id="activeDiaVal" class="font-bold text-slate-900 font-mono">M12 (12.0 mm)</span>
+            </div>
+            <div class="flex justify-between items-center text-slate-600">
+              <span class="font-medium">Active Length:</span>
+              <span id="activeLenVal" class="font-bold text-slate-900 font-mono">50.0 mm</span>
+            </div>
+            <div class="flex justify-between items-center text-slate-600">
+              <span class="font-medium">Calculated Volume:</span>
+              <span id="activeVolumeVal" class="font-bold text-sky-700 font-mono">~ 0.00 cm³</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-sky-50 to-indigo-50/60 border border-sky-100 rounded-3xl p-5 text-xs text-sky-950">
+          <div class="flex items-center gap-2 font-bold text-sky-900 mb-2">
+            <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Precision Thread Volume Formula
+          </div>
+          <p id="formulaExplanation" class="leading-relaxed text-slate-700">
+            Theoretical weight is approximated using the effective pitch cylinder diameter: d₂ = (d - 0.6495 × P), giving accurate continuous 60° V-thread volume.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- How the calculator works -->
+    
+    <!-- Worked Calculation Example Section (AdSense Value Multiplier) -->
+    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+      <div class="border-b border-slate-100 pb-4">
+        <span class="text-xs uppercase font-mono tracking-widest text-sky-600 font-semibold block">Engineering Mathematical Walkthrough</span>
+        <h2 class="text-2xl font-bold text-slate-900 mt-1">Step-by-Step Bolt Weight Calculation Formula</h2>
+        <p class="text-slate-600 text-sm mt-1">Understanding how industrial CAD algorithms model thread crests, pitch line balance, and hexagon volumes.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-700 leading-relaxed">
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-slate-900">1. Pitch Cylinder Shank Volume ($V_{shank}$)</h3>
+          <p>
+            Standard bolts feature 60° triangular grooves. Approximating the shank as a plain cylinder using nominal diameter ($d$) overstates weight by 10% to 14%. MetaliqForge utilizes the <strong>effective pitch diameter line ($d_2$)</strong>, where metal volume of ridges equals the void volume of root grooves:
+          </p>
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 font-mono text-xs text-sky-800">
+            d₂ = d - (0.649519 × Pitch)<br>
+            V_shank = (π / 4) × (d₂)² × Length
+          </div>
+          <p class="text-xs text-slate-500">For an M12 × 50 mm bolt (Pitch = 1.75 mm): $d_2 = 12 - (0.649519 	imes 1.75) = 10.863$ mm.</p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-slate-900">2. Hexagonal Head Volume ($V_{head}$)</h3>
+          <p>
+            The bolt head is calculated as a regular hexagonal prism across width across flats ($s$) and head thickness ($k$), adjusted with a standard 0.925 factor for the manufactured top chamfer and bottom fillet radius:
+          </p>
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 font-mono text-xs text-sky-800">
+            V_head = (√3 / 2) × s² × k × 0.925
+          </div>
+          <p class="text-xs text-slate-500">For M12 ($s = 19$ mm, $k = 7.5$ mm): $V_{head} pprox 2.17$ cm³.</p>
+        </div>
+      </div>
+
+      <!-- Worked Example Box -->
+      <div class="bg-sky-50 border border-sky-100 rounded-2xl p-5 text-xs text-slate-700 space-y-2 font-mono">
+        <span class="font-bold text-sky-900 text-sm block">Complete Worked Example: M12 × 50mm Mild Steel (7.85 g/cm³)</span>
+        <p>• Shank Volume = (π / 4) × (1.0863 cm)² × 5.0 cm = 4.634 cm³</p>
+        <p>• Hex Head Volume = 0.8660 × (1.9 cm)² × 0.75 cm × 0.925 = 2.169 cm³</p>
+        <p>• Net Metal Volume = 4.634 + 2.169 = 6.803 cm³</p>
+        <p>• <strong>Calculated Theoretical Weight = 6.803 cm³ × 7.85 g/cm³ ≈ 53.4 grams per piece</strong></p>
+      </div>
+    </section>
+
+    <!-- Standard Fastener Weight Reference Table (AdSense High Quality Factor) -->
+    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-4">
+      <div class="border-b border-slate-100 pb-4">
+        <span class="text-xs uppercase font-mono tracking-widest text-sky-600 font-semibold block">Workshop Reference Sheet</span>
+        <h2 class="text-2xl font-bold text-slate-900 mt-1">Standard Metric Hex Bolt (Full Thread) Weight Chart</h2>
+        <p class="text-slate-500 text-xs sm:text-sm">Approximate weight per 100 pieces (kg/100 pcs) for standard carbon steel and SS 304 fasteners.</p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 uppercase font-semibold">
+              <th class="p-3">Size & Length</th>
+              <th class="p-3">Pitch (mm)</th>
+              <th class="p-3">Head AF (s)</th>
+              <th class="p-3">Mild Steel (kg/100 pcs)</th>
+              <th class="p-3">SS 304 (kg/100 pcs)</th>
+              <th class="p-3">Matching Nut Weight (kg/100 pcs)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700 font-mono">
+            <tr class="hover:bg-slate-50">
+              <td class="p-3 font-bold text-slate-900 font-sans">M6 × 25 mm</td>
+              <td class="p-3">1.00</td>
+              <td class="p-3">10 mm</td>
+              <td class="p-3">~ 0.82 kg</td>
+              <td class="p-3">~ 0.84 kg</td>
+              <td class="p-3">~ 0.25 kg</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-3 font-bold text-slate-900 font-sans">M8 × 30 mm</td>
+              <td class="p-3">1.25</td>
+              <td class="p-3">13 mm</td>
+              <td class="p-3">~ 1.85 kg</td>
+              <td class="p-3">~ 1.89 kg</td>
+              <td class="p-3">~ 0.52 kg</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-3 font-bold text-slate-900 font-sans">M10 × 40 mm</td>
+              <td class="p-3">1.50</td>
+              <td class="p-3">17 mm</td>
+              <td class="p-3">~ 3.65 kg</td>
+              <td class="p-3">~ 3.72 kg</td>
+              <td class="p-3">~ 1.16 kg</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-3 font-bold text-slate-900 font-sans">M12 × 50 mm</td>
+              <td class="p-3">1.75</td>
+              <td class="p-3">19 mm</td>
+              <td class="p-3">~ 5.34 kg</td>
+              <td class="p-3">~ 5.44 kg</td>
+              <td class="p-3">~ 1.73 kg</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-3 font-bold text-slate-900 font-sans">M16 × 60 mm</td>
+              <td class="p-3">2.00</td>
+              <td class="p-3">24 mm</td>
+              <td class="p-3">~ 12.10 kg</td>
+              <td class="p-3">~ 12.33 kg</td>
+              <td class="p-3">~ 3.33 kg</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-3 font-bold text-slate-900 font-sans">M20 × 80 mm</td>
+              <td class="p-3">2.50</td>
+              <td class="p-3">30 mm</td>
+              <td class="p-3">~ 24.80 kg</td>
+              <td class="p-3">~ 25.27 kg</td>
+              <td class="p-3">~ 6.44 kg</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="p-3 font-bold text-slate-900 font-sans">M24 × 100 mm</td>
+              <td class="p-3">3.00</td>
+              <td class="p-3">36 mm</td>
+              <td class="p-3">~ 44.20 kg</td>
+              <td class="p-3">~ 45.05 kg</td>
+              <td class="p-3">~ 11.00 kg</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-[11px] text-slate-400 mt-2">Weights indicate bare fastener without surface plating. Hot-dip galvanization adds approx 4% to 8% surface mass.</p>
+    </section>
+
+    <!-- Homepage FAQ Section (Helps Pass Search Console & AdSense Quality Thresholds) -->
+    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+      <div class="border-b border-slate-100 pb-4">
+        <span class="text-xs uppercase font-mono tracking-widest text-sky-600 font-semibold block">Common Questions</span>
+        <h2 class="text-2xl font-bold text-slate-900 mt-1">Frequently Asked Fastener Weight Questions</h2>
+      </div>
+
+      <div class="space-y-4 text-sm">
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+          <h3 class="font-bold text-slate-900 mb-1">Why is theoretical fastener weight important in structural fabrication?</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            In heavy pre-engineered buildings, bridges, and offshore platforms, thousands of bolt-nut assemblies can contribute several metric tons to total dead loads. Accurate theoretical weight calculation enables precise shipping freight logistics, crane payload calculations, and raw material cost projections.
+          </p>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+          <h3 class="font-bold text-slate-900 mb-1">What is the difference between bare weight and galvanized weight?</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Bare or black finish bolts reflect the true metallurgical density of the underlying alloy. Hot-dip galvanization (HDG) applies 40 to 80 microns of molten zinc onto threads and heads, which typically increases individual piece weight by 3% to 8% depending on the diameter-to-surface-area ratio.
+          </p>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+          <h3 class="font-bold text-slate-900 mb-1">Can I calculate weight for studs and threaded rods with custom nuts?</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Yes. MetaliqForge includes dedicated configurations for continuous threaded studs and permits selecting 0, 1, 2, 3, or 4 industrial hex nuts per assembly, accurately breaking down body mass versus nut mass.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
+      <h2 class="text-2xl font-extrabold tracking-tight text-slate-900 mb-4">How the calculator works</h2>
+      <div class="prose prose-slate max-w-none space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed">
+        <p>The calculator converts all inputs into millimetres and determines net metal volume using analytical thread geometry before applying material density.</p>
+        <div class="bg-slate-50 border-l-4 border-sky-600 p-4 rounded-r-2xl my-3">
+          <p class="font-bold text-slate-900 text-base">Weight ≈ Net Fastener Volume (cm³) × Material Density (g/cm³)</p>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1">Full-thread shank volume is modeled precisely using the thread pitch line, where metal ridge volume and groove space are identical.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Standards & Trademark Notice -->
+    <section class="text-[11px] text-slate-500 leading-relaxed text-center px-4 max-w-4xl mx-auto border-t border-slate-200 pt-6">
+      <p>
+        <strong>Legal & Trademark Notice:</strong> All international standards and designations referenced on this website (including DIN, ISO, ASME, ANSI, and ASTM) belong to their respective standard-setting organizations. MetaliqForge is an independent engineering utility platform and is not officially affiliated with or endorsed by any standard-setting authority.
+      </p>
+    </section>
+  </main>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookieConsentBanner" class="fixed bottom-0 inset-x-0 z-50 p-4 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-800 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4 max-w-6xl mx-auto sm:mb-4 sm:rounded-2xl transition-transform duration-300 transform translate-y-full">
+    <div class="text-xs text-slate-300 leading-relaxed">
+      We use cookies to improve user experience, maintain site responsiveness, and serve personalized advertisements through Google AdSense. By using our website, you agree to our 
+      <a href="privacy.html" class="text-sky-400 hover:underline font-semibold">Privacy Policy</a> and 
+      <a href="terms.html" class="text-sky-400 hover:underline font-semibold">Terms of Service</a>.
+    </div>
+    <div class="flex items-center gap-2 flex-shrink-0">
+      <button type="button" onclick="acceptCookies()" class="bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition-all shadow-md cursor-pointer">
+        Accept All
+      </button>
+      <button type="button" onclick="dismissCookies()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2.5 rounded-xl transition-all border border-slate-700 cursor-pointer">
+        Decline
+      </button>
+    </div>
+  </div>
+
+  <footer class="bg-slate-900 text-slate-400 text-xs py-8 mt-12 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:flex sm:justify-between sm:items-center">
+      <div>&copy; <span id="currentYear">2026</span> MetaliqForge. All rights reserved.</div>
+      <div class="mt-2 sm:mt-0 text-slate-500">Precision Metal Weight Engineering</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    let currentFastener = 'hex-bolt';
+    let currentUnit = 'mm';
+
+    // Engineering dimensional dataset conforming to DIN 933/931, DIN 912, DIN 934
+    const metricFastenerData = {
+      'M5':  { d: 5,  p: 0.80, s: 8,  k: 3.5,  m: 4.0,  allen_k: 5.0,  allen_dk: 8.5,  allen_s: 4.0,  allen_t: 2.5 },
+      'M6':  { d: 6,  p: 1.00, s: 10, k: 4.0,  m: 5.0,  allen_k: 6.0,  allen_dk: 10.0, allen_s: 5.0,  allen_t: 3.0 },
+      'M8':  { d: 8,  p: 1.25, s: 13, k: 5.3,  m: 6.5,  allen_k: 8.0,  allen_dk: 13.0, allen_s: 6.0,  allen_t: 4.0 },
+      'M10': { d: 10, p: 1.50, s: 17, k: 6.4,  m: 8.0,  allen_k: 10.0, allen_dk: 16.0, allen_s: 8.0,  allen_t: 5.0 },
+      'M12': { d: 12, p: 1.75, s: 19, k: 7.5,  m: 10.0, allen_k: 12.0, allen_dk: 18.0, allen_s: 10.0, allen_t: 6.0 },
+      'M14': { d: 14, p: 2.00, s: 22, k: 8.8,  m: 11.0, allen_k: 14.0, allen_dk: 21.0, allen_s: 12.0, allen_t: 7.0 },
+      'M16': { d: 16, p: 2.00, s: 24, k: 10.0, m: 13.0, allen_k: 16.0, allen_dk: 24.0, allen_s: 14.0, allen_t: 8.0 },
+      'M18': { d: 18, p: 2.50, s: 27, k: 11.5, m: 15.0, allen_k: 18.0, allen_dk: 27.0, allen_s: 14.0, allen_t: 9.0 },
+      'M20': { d: 20, p: 2.50, s: 30, k: 12.5, m: 16.0, allen_k: 20.0, allen_dk: 30.0, allen_s: 17.0, allen_t: 10.0 },
+      'M22': { d: 22, p: 2.50, s: 32, k: 14.0, m: 18.0, allen_k: 22.0, allen_dk: 33.0, allen_s: 17.0, allen_t: 11.0 },
+      'M24': { d: 24, p: 3.00, s: 36, k: 15.0, m: 19.0, allen_k: 24.0, allen_dk: 36.0, allen_s: 19.0, allen_t: 12.0 },
+      'M27': { d: 27, p: 3.00, s: 41, k: 17.0, m: 22.0, allen_k: 27.0, allen_dk: 40.0, allen_s: 19.0, allen_t: 13.5 },
+      'M30': { d: 30, p: 3.50, s: 46, k: 18.7, m: 24.0, allen_k: 30.0, allen_dk: 45.0, allen_s: 22.0, allen_t: 15.0 },
+      'M33': { d: 33, p: 3.50, s: 50, k: 21.0, m: 26.0, allen_k: 33.0, allen_dk: 50.0, allen_s: 24.0, allen_t: 16.5 },
+      'M36': { d: 36, p: 4.00, s: 55, k: 22.5, m: 29.0, allen_k: 36.0, allen_dk: 54.0, allen_s: 27.0, allen_t: 18.0 },
+      'M42': { d: 42, p: 4.50, s: 65, k: 26.0, m: 34.0, allen_k: 42.0, allen_dk: 63.0, allen_s: 32.0, allen_t: 21.0 },
+      'M48': { d: 48, p: 5.00, s: 75, k: 30.0, m: 38.0, allen_k: 48.0, allen_dk: 72.0, allen_s: 36.0, allen_t: 24.0 },
+      'M52': { d: 52, p: 5.00, s: 80, k: 33.0, m: 42.0, allen_k: 52.0, allen_dk: 78.0, allen_s: 36.0, allen_t: 26.0 }
+    };
+
+    const metricStandardLengths = [10, 12, 16, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 120, 140, 160, 180, 200, 250, 300];
+    const metricGrubLengths = [5, 6, 8, 10, 12, 16, 20, 25, 30, 35, 40, 50, 60];
+
+    // Imperial dataset with standard UNC TPI threads using single-quote keys to avoid quote-collision
+    const imperialFastenerData = {
+      '1/4"':   { d_in: 0.250,  tpi: 20,   s_in: 7/16,  k_in: 5/32,  m_in: 7/32,  allen_dk_in: 0.375, allen_k_in: 0.250, allen_s_in: 3/16, allen_t_in: 0.125 },
+      '5/16"':  { d_in: 0.3125, tpi: 18,   s_in: 1/2,   k_in: 13/64, m_in: 17/64, allen_dk_in: 0.438, allen_k_in: 0.312, allen_s_in: 1/4,  allen_t_in: 0.156 },
+      '3/8"':   { d_in: 0.375,  tpi: 16,   s_in: 9/16,  k_in: 15/64, m_in: 21/64, allen_dk_in: 0.562, allen_k_in: 0.375, allen_s_in: 5/16, allen_t_in: 0.188 },
+      '1/2"':   { d_in: 0.500,  tpi: 13,   s_in: 3/4,   k_in: 5/16,  m_in: 7/16,  allen_dk_in: 0.750, allen_k_in: 0.500, allen_s_in: 3/8,  allen_t_in: 0.250 },
+      '5/8"':   { d_in: 0.625,  tpi: 11,   s_in: 15/16, k_in: 25/64, m_in: 35/64, allen_dk_in: 0.875, allen_k_in: 0.625, allen_s_in: 1/2,  allen_t_in: 0.312 },
+      '3/4"':   { d_in: 0.750,  tpi: 10,   s_in: 1.125, k_in: 15/32, m_in: 41/64, allen_dk_in: 1.000, allen_k_in: 0.750, allen_s_in: 5/8,  allen_t_in: 0.375 },
+      '7/8"':   { d_in: 0.875,  tpi: 9,    s_in: 1.312, k_in: 35/64, m_in: 3/4,   allen_dk_in: 1.125, allen_k_in: 0.875, allen_s_in: 3/4,  allen_t_in: 0.438 },
+      '1"':     { d_in: 1.000,  tpi: 8,    s_in: 1.500, k_in: 39/64, m_in: 55/64, allen_dk_in: 1.312, allen_k_in: 1.000, allen_s_in: 3/4,  allen_t_in: 0.500 },
+      '1 1/4"': { d_in: 1.250,  tpi: 7,    s_in: 1.875, k_in: 25/32, m_in: 1.062, allen_dk_in: 1.625, allen_k_in: 1.250, allen_s_in: 7/8,  allen_t_in: 0.625 },
+      '1 1/2"': { d_in: 1.500,  tpi: 6,    s_in: 2.250, k_in: 15/16, m_in: 1.281, allen_dk_in: 1.937, allen_k_in: 1.500, allen_s_in: 1.0,  allen_t_in: 0.750 },
+      '2"':     { d_in: 2.000,  tpi: 4.5,  s_in: 3.000, k_in: 1.250, m_in: 1.718, allen_dk_in: 2.500, allen_k_in: 2.000, allen_s_in: 1.5,  allen_t_in: 1.000 }
+    };
+
+    const imperialStandardLengths = [
+      { label: '1/4"', val: 0.25 }, { label: '1/2"', val: 0.50 }, { label: '3/4"', val: 0.75 },
+      { label: '1"', val: 1.00 }, { label: '1 1/4"', val: 1.25 }, { label: '1 1/2"', val: 1.50 },
+      { label: '1 3/4"', val: 1.75 }, { label: '2"', val: 2.00 }, { label: '2 1/2"', val: 2.50 },
+      { label: '3"', val: 3.00 }, { label: '3 1/2"', val: 3.50 }, { label: '4"', val: 4.00 },
+      { label: '5"', val: 5.00 }, { label: '6"', val: 6.00 }, { label: '7"', val: 7.00 },
+      { label: '8"', val: 8.00 }, { label: '9"', val: 9.00 }, { label: '10"', val: 10.00 },
+      { label: '11"', val: 11.00 }, { label: '12"', val: 12.00 }
+    ];
+
+    const imperialGrubLengths = [
+      { label: '3/16"', val: 0.1875 }, { label: '1/4"', val: 0.25 }, { label: '5/16"', val: 0.3125 },
+      { label: '3/8"', val: 0.375 }, { label: '1/2"', val: 0.50 }, { label: '5/8"', val: 0.625 },
+      { label: '3/4"', val: 0.75 }, { label: '1"', val: 1.00 }, { label: '1 1/4"', val: 1.25 },
+      { label: '1 1/2"', val: 1.50 }, { label: '2"', val: 2.00 }
+    ];
+
+    function setFastenerType(type) {
+      currentFastener = type;
+      const types = ['hex-bolt', 'allen-bolt', 'studs', 'grub-screw'];
+      types.forEach(t => {
+        const btn = document.getElementById(`btn-${t}`);
+        if (!btn) return;
+        const iconContainer = btn.querySelector('div');
+        if (t === type) {
+          btn.className = "fastener-tab-btn flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all duration-200 bg-white border-sky-600 shadow-md text-sky-700 group cursor-pointer";
+          if (iconContainer) iconContainer.className = "w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform";
+        } else {
+          btn.className = "fastener-tab-btn flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all duration-200 bg-white border-slate-200 hover:border-sky-300 text-slate-700 group cursor-pointer";
+          if (iconContainer) iconContainer.className = "w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform";
+        }
+      });
+
+      const nutSection = document.getElementById('nutSectionCard');
+      const nutCountSelect = document.getElementById('nutCountSelect');
+      const heroTitle = document.getElementById('heroTitle');
+      const calcCardTitle = document.getElementById('calcCardTitle');
+      const standardBadge = document.getElementById('standardBadge');
+      const formulaExplanation = document.getElementById('formulaExplanation');
+
+      if (type === 'hex-bolt') {
+        if (heroTitle) heroTitle.textContent = "Hex Bolt (Full Thread) Weight Calculator";
+        if (calcCardTitle) calcCardTitle.textContent = "Hex Bolt (Full Thread) Parameters";
+        if (standardBadge) standardBadge.textContent = "Full Thread";
+        if (nutSection) nutSection.style.display = 'block';
+        if (nutCountSelect) nutCountSelect.value = "1";
+        if (formulaExplanation) formulaExplanation.textContent = "Hex bolt volume is modeled as a regular hexagonal prism head (with corner chamfer & underhead fillet) plus a continuous threaded body using effective pitch line d₂.";
+      } else if (type === 'allen-bolt') {
+        if (heroTitle) heroTitle.textContent = "Allen Bolt (Full Thread) Weight Calculator";
+        if (calcCardTitle) calcCardTitle.textContent = "Allen Bolt (Full Thread) Parameters";
+        if (standardBadge) standardBadge.textContent = "Full Thread";
+        if (nutSection) nutSection.style.display = 'block';
+        if (nutCountSelect) nutCountSelect.value = "0";
+        if (formulaExplanation) formulaExplanation.textContent = "Allen bolt volume is calculated from cylindrical socket head (minus internal hex socket key recess) plus continuous threaded body.";
+      } else if (type === 'studs') {
+        if (heroTitle) heroTitle.textContent = "Studs & Threaded Rod Weight Calculator";
+        if (calcCardTitle) calcCardTitle.textContent = "Stud Bolt Parameters";
+        if (standardBadge) standardBadge.textContent = "Continuous Thread";
+        if (nutSection) nutSection.style.display = 'block';
+        if (nutCountSelect) nutCountSelect.value = "2";
+        if (formulaExplanation) formulaExplanation.textContent = "Stud weight represents a full continuous threaded bar using pitch equivalent diameter d₂, combined with user-selected industrial hex nuts.";
+      } else if (type === 'grub-screw') {
+        if (heroTitle) heroTitle.textContent = "Grub Screw (Set Screw) Weight Calculator";
+        if (calcCardTitle) calcCardTitle.textContent = "Grub Screw Parameters";
+        if (standardBadge) standardBadge.textContent = "Socket Set Screw";
+        if (nutSection) nutSection.style.display = 'none';
+        if (nutCountSelect) nutCountSelect.value = "0";
+        if (formulaExplanation) formulaExplanation.textContent = "Grub screws are fully threaded cylinders minus the internal hexagonal key socket.";
+      }
+
+      populateOptions();
+      updateSketchSVG();
+      calculateWeight();
+    }
+
+    function setUnitSystem(unit) {
+      currentUnit = unit;
+      const metricBtn = document.getElementById('unitMetricBtn');
+      const inchBtn = document.getElementById('unitInchBtn');
+      const diaUnitLabel = document.getElementById('diaUnitLabel');
+      const lenUnitLabel = document.getElementById('lenUnitLabel');
+
+      if (unit === 'mm') {
+        if (metricBtn) metricBtn.className = "px-3 py-1 rounded-lg text-xs font-bold transition-all bg-sky-600 text-white shadow-sm cursor-pointer";
+        if (inchBtn) inchBtn.className = "px-3 py-1 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition-all cursor-pointer";
+        if (diaUnitLabel) diaUnitLabel.textContent = "mm";
+        if (lenUnitLabel) lenUnitLabel.textContent = "mm";
+      } else {
+        if (inchBtn) inchBtn.className = "px-3 py-1 rounded-lg text-xs font-bold transition-all bg-sky-600 text-white shadow-sm cursor-pointer";
+        if (metricBtn) metricBtn.className = "px-3 py-1 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition-all cursor-pointer";
+        if (diaUnitLabel) diaUnitLabel.textContent = "inch";
+        if (lenUnitLabel) lenUnitLabel.textContent = "inch";
+      }
+
+      populateOptions(true);
+      calculateWeight();
+    }
+
+    function populateOptions(isUnitSwitch = false) {
+      const diaSelect = document.getElementById('diameterSelect');
+      const lenSelect = document.getElementById('lengthSelect');
+      if (!diaSelect || !lenSelect) return;
+
+      const prevDia = isUnitSwitch ? null : diaSelect.value;
+      const prevLen = isUnitSwitch ? null : lenSelect.value;
+      
+      diaSelect.innerHTML = '';
+      lenSelect.innerHTML = '';
+
+      if (currentUnit === 'mm') {
+        const metricKeys = Object.keys(metricFastenerData);
+        metricKeys.forEach(size => {
+          const opt = document.createElement('option');
+          opt.value = size;
+          opt.textContent = `${size} (Dia: ${metricFastenerData[size].d}mm)`;
+          if (size === (prevDia || "M12")) opt.selected = true;
+          diaSelect.appendChild(opt);
+        });
+
+        const lengths = currentFastener === 'grub-screw' ? metricGrubLengths : metricStandardLengths;
+        lengths.forEach(len => {
+          const opt = document.createElement('option');
+          opt.value = len;
+          opt.textContent = `${len} mm`;
+          if (prevLen ? (parseFloat(prevLen) === len) : (len === (currentFastener === 'grub-screw' ? 20 : 50))) {
+            opt.selected = true;
+          }
+          lenSelect.appendChild(opt);
+        });
+      } else {
+        const imperialKeys = Object.keys(imperialFastenerData);
+        imperialKeys.forEach(size => {
+          const opt = document.createElement('option');
+          opt.value = size;
+          opt.textContent = `${size} (Dia: ${imperialFastenerData[size].d_in}")`;
+          if (size === (prevDia || '1/2"')) opt.selected = true;
+          diaSelect.appendChild(opt);
+        });
+
+        const lengths = currentFastener === 'grub-screw' ? imperialGrubLengths : imperialStandardLengths;
+        lengths.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item.val;
+          opt.textContent = item.label;
+          if (prevLen ? (parseFloat(prevLen) === item.val) : (item.val === (currentFastener === 'grub-screw' ? 0.75 : 2.0))) {
+            opt.selected = true;
+          }
+          lenSelect.appendChild(opt);
+        });
+      }
+    }
+
+    function calculateWeight() {
+      try {
+        const nutCountSelect = document.getElementById('nutCountSelect');
+        const nutCount = nutCountSelect ? (parseInt(nutCountSelect.value) || 0) : 0;
+        const matSelect = document.getElementById('materialSelect');
+        const matVal = matSelect ? matSelect.value : "7.85";
+        const density = matVal === '8.00_316' ? 8.00 : (parseFloat(matVal) || 7.85);
+        const qtyInput = document.getElementById('quantityInput');
+        const qty = qtyInput ? (parseInt(qtyInput.value) || 1) : 1;
+
+        const diaSelect = document.getElementById('diameterSelect');
+        const diaKey = diaSelect ? diaSelect.value : 'M12';
+        const lenSelect = document.getElementById('lengthSelect');
+        const lenVal = lenSelect ? (parseFloat(lenSelect.value) || (currentFastener === 'grub-screw' ? 20 : 50)) : 50;
+
+        let d_mm = 0, p_mm = 0, s_mm = 0, k_mm = 0, m_mm = 0, L_mm = 0;
+        let allen_k_mm = 0, allen_dk_mm = 0, allen_s_mm = 0, allen_t_mm = 0;
+
+        if (currentUnit === 'mm') {
+          const spec = metricFastenerData[diaKey] || metricFastenerData['M12'];
+          d_mm = spec.d;
+          p_mm = spec.p;
+          s_mm = spec.s;
+          k_mm = spec.k;
+          m_mm = spec.m;
+          allen_k_mm = spec.allen_k;
+          allen_dk_mm = spec.allen_dk;
+          allen_s_mm = spec.allen_s;
+          allen_t_mm = spec.allen_t;
+          L_mm = lenVal;
+        } else {
+          const spec = imperialFastenerData[diaKey] || imperialFastenerData['1/2"'];
+          d_mm = spec.d_in * 25.4;
+          p_mm = (1 / spec.tpi) * 25.4;
+          s_mm = spec.s_in * 25.4;
+          k_mm = spec.k_in * 25.4;
+          m_mm = spec.m_in * 25.4;
+          allen_k_mm = spec.allen_k_in * 25.4;
+          allen_dk_mm = spec.allen_dk_in * 25.4;
+          allen_s_mm = spec.allen_s_in * 25.4;
+          allen_t_mm = spec.allen_t_in * 25.4;
+          L_mm = lenVal * 25.4;
+        }
+
+        // Calibrated Pitch Line Cylinder Diameter (ISO 60° metric thread analytical volume equivalence)
+        const d2_effective = d_mm - 0.649519 * p_mm;
+
+        let headVolume_mm3 = 0;
+        let bodyVolume_mm3 = 0;
+
+        if (currentFastener === 'hex-bolt') {
+          // Regular hexagonal prism with real-world top chamfer & underhead fillet reduction (0.925 factor matches standard tables)
+          headVolume_mm3 = 0.8660254 * Math.pow(s_mm, 2) * k_mm * 0.925;
+          bodyVolume_mm3 = (Math.PI / 4) * Math.pow(d2_effective, 2) * L_mm;
+        } else if (currentFastener === 'allen-bolt') {
+          // Cylindrical socket head with top edge chamfer (~0.965) minus internal hex drive socket cavity
+          const solidHeadVol = (Math.PI / 4) * Math.pow(allen_dk_mm, 2) * allen_k_mm * 0.965;
+          const hexRecessVol = 0.8660254 * Math.pow(allen_s_mm, 2) * allen_t_mm;
+          headVolume_mm3 = Math.max(0, solidHeadVol - hexRecessVol);
+          bodyVolume_mm3 = (Math.PI / 4) * Math.pow(d2_effective, 2) * L_mm;
+        } else if (currentFastener === 'studs') {
+          headVolume_mm3 = 0;
+          bodyVolume_mm3 = (Math.PI / 4) * Math.pow(d2_effective, 2) * L_mm;
+        } else if (currentFastener === 'grub-screw') {
+          headVolume_mm3 = 0;
+          const totalShankVol = (Math.PI / 4) * Math.pow(d2_effective, 2) * L_mm;
+          const socketDepth = Math.min(allen_t_mm, L_mm * 0.5);
+          const socketCavity = 0.8660254 * Math.pow(allen_s_mm, 2) * socketDepth;
+          bodyVolume_mm3 = Math.max(0, totalShankVol - socketCavity);
+        }
+
+        // Standard DIN 934 Hex Nut: Outer hexagonal volume with standard double chamfer (0.915 factor) minus internal tapped hole volume
+        const nutHexPrism = 0.8660254 * Math.pow(s_mm, 2) * m_mm * 0.915;
+        const nutHoleVol = (Math.PI / 4) * Math.pow(d2_effective, 2) * m_mm;
+        const singleNutVol = Math.max(0, nutHexPrism - nutHoleVol);
+
+        // Density in g/cm³ -> divided by 1000 to convert from mm³ to cm³
+        const headWeightG = (headVolume_mm3 / 1000) * density;
+        const shankWeightG = (bodyVolume_mm3 / 1000) * density;
+        const singleNutWeightG = (singleNutVol / 1000) * density;
+        const totalNutWeightG = singleNutWeightG * nutCount;
+
+        const singlePieceG = headWeightG + shankWeightG + totalNutWeightG;
+        const singlePieceKg = singlePieceG / 1000;
+        const totalKg = singlePieceKg * qty;
+        const totalLbs = totalKg * 2.20462;
+
+        // Approx formatting
+        const formattedSingleG = singlePieceG >= 100 ? singlePieceG.toFixed(1) : singlePieceG.toFixed(2);
+        const formattedSingleKg = singlePieceKg.toFixed(4);
+        const formattedTotalKg = totalKg >= 1000 ? totalKg.toFixed(1) : totalKg.toFixed(2);
+        const formattedTotalLbs = totalLbs >= 1000 ? totalLbs.toFixed(1) : totalLbs.toFixed(2);
+
+        const elSingleG = document.getElementById('singleWeightG');
+        const elSingleKg = document.getElementById('singleWeightKg');
+        const elTotalKg = document.getElementById('totalWeightKg');
+        const elTotalLbs = document.getElementById('totalWeightLbs');
+
+        if (elSingleG) elSingleG.textContent = `~ ${formattedSingleG}`;
+        if (elSingleKg) elSingleKg.textContent = `~ ${formattedSingleKg}`;
+        if (elTotalKg) elTotalKg.textContent = `~ ${formattedTotalKg}`;
+        if (elTotalLbs) elTotalLbs.textContent = `~ ${formattedTotalLbs}`;
+
+        const elHeadTxt = document.getElementById('headWeightTxt');
+        const elShankTxt = document.getElementById('shankWeightTxt');
+        const elNutTxt = document.getElementById('nutWeightTxt');
+
+        if (elHeadTxt) elHeadTxt.textContent = `~ ${headWeightG.toFixed(1)}g`;
+        if (elShankTxt) elShankTxt.textContent = `~ ${shankWeightG.toFixed(1)}g`;
+        if (elNutTxt) elNutTxt.textContent = nutCount > 0 ? `~ ${totalNutWeightG.toFixed(1)}g (${nutCount}x)` : '~ 0.0g';
+
+        const lenText = (lenSelect && lenSelect.options[lenSelect.selectedIndex]) ? lenSelect.options[lenSelect.selectedIndex].text : '';
+        const fastenerName = currentFastener.replace('-', ' ').toUpperCase();
+        const elBadge = document.getElementById('summaryBadge');
+        if (elBadge) elBadge.textContent = `${fastenerName}: ${diaKey} x ${lenText}${nutCount > 0 ? ` + ${nutCount} Nut(s)` : ''} (Approx)`;
+
+        const elActiveDia = document.getElementById('activeDiaVal');
+        const elActiveLen = document.getElementById('activeLenVal');
+        const elActiveVol = document.getElementById('activeVolumeVal');
+
+        if (elActiveDia) elActiveDia.textContent = `${diaKey} (${d_mm.toFixed(1)} mm)`;
+        if (elActiveLen) elActiveLen.textContent = `${L_mm.toFixed(1)} mm (${lenText})`;
+        
+        const totalActiveVolCm3 = (singlePieceG / density).toFixed(2);
+        if (elActiveVol) elActiveVol.textContent = `~ ${totalActiveVolCm3} cm³`;
+
+      } catch (e) {
+        console.error("Calculation Error:", e);
+      }
+    }
+
+    function updateSketchSVG() {
+      const container = document.getElementById('svgContainer');
+      if (!container) return;
+
+      if (currentFastener === 'hex-bolt') {
+        container.innerHTML = `
+          <svg viewBox="0 0 440 210" class="w-full h-auto max-w-sm drop-shadow-sm select-none">
+            <defs>
+              <marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0284c7"/></marker>
+            </defs>
+            <rect x="50" y="45" width="35" height="70" rx="3" fill="#cbd5e1" stroke="#334155" stroke-width="2"/>
+            <rect x="85" y="60" width="180" height="40" fill="#e2e8f0" stroke="#334155" stroke-width="2"/>
+            <path d="M 95 60 L 101 100 M 110 60 L 116 100 M 125 60 L 131 100 M 140 60 L 146 100 M 155 60 L 161 100 M 170 60 L 176 100 M 185 60 L 191 100 M 200 60 L 206 100 M 215 60 L 221 100 M 230 60 L 236 100 M 245 60 L 251 100 M 258 60 L 264 100" stroke="#94a3b8" stroke-width="2"/>
+            <rect x="290" y="50" width="30" height="60" rx="3" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+            <line x1="85" y1="125" x2="265" y2="125" stroke="#0284c7" stroke-width="2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+            <text x="175" y="145" fill="#0284c7" font-size="12" font-weight="bold" text-anchor="middle">Length (L)</text>
+            <line x1="275" y1="60" x2="275" y2="100" stroke="#0284c7" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+            <text x="285" y="85" fill="#0284c7" font-size="11" font-weight="bold">Dia (d)</text>
+            <text x="170" y="180" fill="#475569" font-size="11" font-weight="bold" text-anchor="middle">Hex Head Bolt (Full Thread) & Hex Nut</text>
+          </svg>`;
+      } else if (currentFastener === 'allen-bolt') {
+        container.innerHTML = `
+          <svg viewBox="0 0 440 210" class="w-full h-auto max-w-sm drop-shadow-sm select-none">
+            <defs>
+              <marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0284c7"/></marker>
+            </defs>
+            <rect x="50" y="45" width="40" height="70" rx="2" fill="#cbd5e1" stroke="#334155" stroke-width="2"/>
+            <polygon points="50,70 58,65 68,70 68,90 58,95 50,90" fill="#475569"/>
+            <rect x="90" y="60" width="180" height="40" fill="#e2e8f0" stroke="#334155" stroke-width="2"/>
+            <path d="M 100 60 L 106 100 M 115 60 L 121 100 M 130 60 L 136 100 M 145 60 L 151 100 M 160 60 L 166 100 M 175 60 L 181 100 M 190 60 L 196 100 M 205 60 L 211 100 M 220 60 L 226 100 M 235 60 L 241 100 M 250 60 L 256 100 M 262 60 L 268 100" stroke="#94a3b8" stroke-width="2"/>
+            <line x1="90" y1="125" x2="270" y2="125" stroke="#0284c7" stroke-width="2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+            <text x="180" y="145" fill="#0284c7" font-size="12" font-weight="bold" text-anchor="middle">Length (L)</text>
+            <text x="170" y="180" fill="#475569" font-size="11" font-weight="bold" text-anchor="middle">Allen Bolt / Socket Head Cap Screw (Full Thread)</text>
+          </svg>`;
+      } else if (currentFastener === 'studs') {
+        container.innerHTML = `
+          <svg viewBox="0 0 440 210" class="w-full h-auto max-w-sm drop-shadow-sm select-none">
+            <defs>
+              <marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0284c7"/></marker>
+            </defs>
+            <rect x="50" y="60" width="240" height="40" fill="#e2e8f0" stroke="#334155" stroke-width="2"/>
+            <path d="M 60 60 L 66 100 M 80 60 L 86 100 M 100 60 L 106 100 M 120 60 L 126 100 M 140 60 L 146 100 M 160 60 L 166 100 M 180 60 L 186 100 M 200 60 L 206 100 M 220 60 L 226 100 M 240 60 L 246 100 M 260 60 L 266 100" stroke="#94a3b8" stroke-width="2"/>
+            <rect x="65" y="50" width="25" height="60" rx="3" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+            <rect x="245" y="50" width="25" height="60" rx="3" fill="#94a3b8" stroke="#1e293b" stroke-width="2"/>
+            <line x1="50" y1="130" x2="290" y2="130" stroke="#0284c7" stroke-width="2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+            <text x="170" y="150" fill="#0284c7" font-size="12" font-weight="bold" text-anchor="middle">Stud Total Length (L)</text>
+            <text x="170" y="180" fill="#475569" font-size="11" font-weight="bold" text-anchor="middle">Threaded Stud Bar with Double End Nuts</text>
+          </svg>`;
+      } else if (currentFastener === 'grub-screw') {
+        container.innerHTML = `
+          <svg viewBox="0 0 440 210" class="w-full h-auto max-w-sm drop-shadow-sm select-none">
+            <defs>
+              <marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0284c7"/></marker>
+            </defs>
+            <rect x="120" y="55" width="160" height="50" rx="2" fill="#e2e8f0" stroke="#334155" stroke-width="2"/>
+            <path d="M 140 55 L 146 105 M 160 55 L 166 105 M 180 55 L 186 105 M 200 55 L 206 105 M 220 55 L 226 105 M 240 55 L 246 105 M 260 55 L 266 105" stroke="#94a3b8" stroke-width="2"/>
+            <polygon points="120,70 130,65 140,70 140,90 130,95 120,90" fill="#334155"/>
+            <polygon points="280,60 285,65 285,95 280,100" fill="#94a3b8"/>
+            <line x1="120" y1="130" x2="280" y2="130" stroke="#0284c7" stroke-width="2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+            <text x="200" y="150" fill="#0284c7" font-size="12" font-weight="bold" text-anchor="middle">Length (L)</text>
+            <text x="200" y="180" fill="#475569" font-size="11" font-weight="bold" text-anchor="middle">Socket Set Screw / Grub Screw</text>
+          </svg>`;
+      }
+    }
+
+    function setQuantity(n) {
+      const qInput = document.getElementById('quantityInput');
+      if (qInput) {
+        qInput.value = n;
+        calculateWeight();
+      }
+    }
+
+    function copyCalculationSummary() {
+      const badge = document.getElementById('summaryBadge');
+      const sG = document.getElementById('singleWeightG');
+      const sKg = document.getElementById('singleWeightKg');
+      const tKg = document.getElementById('totalWeightKg');
+      const tLbs = document.getElementById('totalWeightLbs');
+
+      const summaryText = (badge ? badge.textContent : 'Fastener') + "\n" +
+        "Weight/pc: " + (sG ? sG.textContent : '') + " (" + (sKg ? sKg.textContent : '') + ")\n" +
+        "Total Batch: " + (tKg ? tKg.textContent : '') + " (" + (tLbs ? tLbs.textContent : '') + ")\n" +
+        "Calculated via MetaliqForge";
+      
+      const dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = summaryText;
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+      showToast("Calculation summary copied!");
+    }
+
+    // Dropdown menu handler
+    const menuBtn = document.getElementById('menuDropdownBtn');
+    const menuDropdown = document.getElementById('menuDropdownMenu');
+    if (menuBtn && menuDropdown) {
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menuDropdown.classList.toggle('hidden');
+      });
+      document.addEventListener('click', () => menuDropdown.classList.add('hidden'));
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      if (!toast || !toastMsg) return;
+      toastMsg.textContent = msg;
+      toast.classList.remove('opacity-0', 'translate-y-20', 'pointer-events-none');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-20', 'pointer-events-none');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 3000);
+    }
+
+    // Cookie consent handler
+    function acceptCookies() {
+      localStorage.setItem('metaliqforge_cookie_consent', 'accepted');
+      hideCookieBanner();
+      showToast("Cookie preferences saved!");
+    }
+
+    function dismissCookies() {
+      localStorage.setItem('metaliqforge_cookie_consent', 'declined');
+      hideCookieBanner();
+    }
+
+    function hideCookieBanner() {
+      const banner = document.getElementById('cookieConsentBanner');
+      if (banner) banner.classList.add('translate-y-full');
+    }
+
+    function checkCookieConsent() {
+      const consent = localStorage.getItem('metaliqforge_cookie_consent');
+      if (!consent) {
+        setTimeout(() => {
+          const banner = document.getElementById('cookieConsentBanner');
+          if (banner) banner.classList.remove('translate-y-full');
+        }, 1200);
+      }
+    }
+
+    // Auto-initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+
+    function initApp() {
+      setFastenerType('hex-bolt');
+      checkCookieConsent();
+    }
+  </script>
+</body>
+</html>

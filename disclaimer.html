@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disclaimer | MetaliqForge</title>
+  <meta name="description" content="Legal and technical disclaimer for MetaliqForge. Understand the theoretical nature of industrial fastener and metal weight calculations.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center space-x-2.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform duration-200">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l7 4v6l-7 4-7-4V6z"/>
+            <path d="M12 16v6"/>
+            <path d="M8 18h8"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-slate-900 leading-none">
+            Metaliq<span class="text-sky-600">Forge</span>
+          </span>
+          <span class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5">INDUSTRIAL METAL WEIGHT CALCULATOR</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav & Dropdown Menu -->
+      <div class="flex items-center gap-3">
+        <nav class="hidden md:flex items-center space-x-1">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Home</a>
+          <a href="resources.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Resources</a>
+          <a href="articles.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Articles</a>
+          <a href="about.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">About Us</a>
+          <a href="contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Contact Us</a>
+        </nav>
+
+        <div class="relative">
+          <button id="menuDropdownBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all focus:outline-none">
+            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+            </svg>
+            <span>Pages Menu</span>
+            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+
+          <div id="menuDropdownMenu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-200/80 py-2 z-50">
+            <div class="px-3 py-1.5 border-b border-slate-100">
+              <span class="text-xs uppercase font-bold text-slate-400 tracking-wider">MetaliqForge Pages</span>
+            </div>
+            <a href="index.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Home (Calculator)
+            </a>
+            <a href="resources.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Resources & Densities
+            </a>
+            <a href="articles.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Technical Articles
+            </a>
+            <a href="privacy.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Privacy Policy
+            </a>
+            <a href="disclaimer.html" class="flex items-center px-4 py-2.5 text-sm text-sky-700 bg-sky-50 font-medium">
+              <span class="w-2 h-2 rounded-full bg-sky-500 mr-2.5"></span> Disclaimer
+            </a>
+            <a href="contact.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Contact Us
+            </a>
+            <a href="terms.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Terms of Service
+            </a>
+            <div class="border-t border-slate-100 my-1"></div>
+            <a href="about.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2.5"></span> About Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- Main Content -->
+  <main class="flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-sky-950 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 max-w-3xl">
+        <span class="text-xs uppercase font-mono tracking-widest text-sky-400 font-semibold mb-2 block">Legal & Technical Notice</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">Disclaimer</h1>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Important legal notice regarding the accuracy, limitations, and theoretical nature of calculations on MetaliqForge.
+        </p>
+      </div>
+    </section>
+
+    <!-- Detailed Content Card -->
+    <article class="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-200 text-slate-700 space-y-6 text-sm sm:text-base leading-relaxed">
+      
+      <div class="border-b border-slate-100 pb-4">
+        <p class="text-xs font-mono text-slate-400">Last Revised: October 2026</p>
+      </div>
+
+      <!-- Section 1 -->
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">1. Theoretical & Estimative Nature of Calculations</h2>
+        <p class="mb-3">
+          All data, results, volumes, and weights calculated using <strong>MetaliqForge</strong> (including but not limited to Hex Bolts, Allen Bolts, Studs, Grub Screws, and Hex Nuts) are provided strictly for <strong>theoretical estimation, informational, and preliminary planning purposes</strong>.
+        </p>
+        <p>
+          While our algorithms use standard mathematical models (such as ISO/DIN pitch-line pitch cylinder calculations and standard geometric formulas), theoretical calculations cannot account for real-world manufacturing deviations.
+        </p>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="bg-amber-50/70 border-l-4 border-amber-500 p-4 rounded-r-2xl">
+        <h2 class="text-base font-bold text-amber-900 mb-1">2. Manufacturing Tolerances & Material Deviations</h2>
+        <p class="text-xs sm:text-sm text-amber-800 leading-relaxed">
+          Actual physical fasteners differ slightly in weight from theoretical values due to:
+        </p>
+        <ul class="list-disc list-inside text-xs sm:text-sm text-amber-900 mt-2 space-y-1">
+          <li><strong>Dimensional Tolerances:</strong> Standards (ISO 4014, ISO 4017, DIN 933, ASME B18.2.1) allow upper and lower limits on head height, width across flats, thread crest rounding, and shank diameter.</li>
+          <li><strong>Material Density Variations:</strong> The density of commercial metal alloys (e.g., Mild Steel at 7.85 g/cm³, SS 304 at 8.00 g/cm³, Brass at 8.50 g/cm³) may vary marginally between batches, mill certificates, and temper grades.</li>
+          <li><strong>Surface Coatings & Finishes:</strong> Electroplating, hot-dip galvanization, passivating, PTFE coating, or black oxide finishing alter the gross final weight.</li>
+        </ul>
+      </div>
+
+      <!-- Section 3 -->
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">3. No Professional Engineering or Structural Warranty</h2>
+        <p>
+          The information on this website does not constitute official structural engineering certification, aerospace stress analysis, or metallurgical advice. MetaliqForge, its developers, and contributors shall not be held liable for any procurement errors, freight miscalculations, structural failures, financial losses, or project delays arising from reliance on the estimations provided by this tool.
+        </p>
+      </div>
+
+      <!-- Section 4 -->
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">4. Verification Requirement</h2>
+        <p>
+          For critical commercial procurement, maritime shipping declarations, or structural engineering projects, users are strongly advised to verify values against certified physical sample weighings, official manufacturer mill test reports (MTR), and applicable international engineering standards bodies (ISO, DIN, ASTM, ASME).
+        </p>
+      </div>
+
+      <!-- Section 5 -->
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">5. Third-Party Advertisements & External Links</h2>
+        <p>
+          MetaliqForge may display third-party advertisements (such as Google AdSense) and links to external websites for related references. MetaliqForge does not endorse, guarantee, or assume responsibility for the products, services, accuracy, or privacy policies of third-party advertisers or external websites.
+        </p>
+      </div>
+
+      <!-- Section 6 -->
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">6. Changes and Updates</h2>
+        <p>
+          We reserve the right to amend, update, or refine our formulas, material density metrics, and site features at any time without prior notice.
+        </p>
+      </div>
+
+      <!-- Section 7: Contact -->
+      <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs">
+        <div>
+          <span class="font-bold text-slate-900 block">Questions regarding this Disclaimer?</span>
+          <span class="text-slate-500">Reach our team for technical clarifications or standard checks.</span>
+        </div>
+        <a href="contact.html" class="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl font-semibold transition-colors">
+          <span>Contact Us Page</span>
+          &rarr;
+        </a>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-8 mt-12 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:flex sm:justify-between sm:items-center">
+      <div>&copy; <span id="currentYear">2026</span> MetaliqForge. All rights reserved.</div>
+      <div class="mt-2 sm:mt-0 text-slate-500">Precision Metal Weight Engineering</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Menu dropdown handler
+    const menuBtn = document.getElementById('menuDropdownBtn');
+    const menuDropdown = document.getElementById('menuDropdownMenu');
+    if (menuBtn && menuDropdown) {
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menuDropdown.classList.toggle('hidden');
+      });
+      document.addEventListener('click', () => menuDropdown.classList.add('hidden'));
+    }
+  </script>
+</body>
+</html>
