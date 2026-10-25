@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metal Pipe (Hollow Tube) Weight Calculator | MetaliqForge</title>
+  <meta name="description" content="Calculate theoretical weight of round hollow metal pipes and tubes using Outer Diameter, Wall Thickness, and Length in metric (mm) or imperial (inch) units.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center space-x-2.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform duration-200">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l7 4v6l-7 4-7-4V6z"/>
+            <path d="M12 16v6"/>
+            <path d="M8 18h8"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-slate-900 leading-none">
+            Metaliq<span class="text-sky-600">Forge</span>
+          </span>
+          <span class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5">INDUSTRIAL METAL WEIGHT CALCULATOR</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav & Dropdown Menu -->
+      <div class="flex items-center gap-3">
+        <nav class="hidden md:flex items-center space-x-1">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Home</a>
+          <a href="resources.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Resources</a>
+          <a href="articles.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Articles</a>
+          <a href="about.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">About Us</a>
+          <a href="contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Contact Us</a>
+        </nav>
+
+        <div class="relative">
+          <button id="menuDropdownBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all focus:outline-none">
+            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+            </svg>
+            <span>Menu</span>
+            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+
+          <div id="menuDropdownMenu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-200/80 py-2 z-50">
+            <div class="px-3 py-1.5 border-b border-slate-100">
+              <span class="text-xs uppercase font-bold text-slate-400 tracking-wider">Site Navigation</span>
+            </div>
+            <a href="index.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Home
+            </a>
+            <a href="resources.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Resources & Densities
+            </a>
+            <a href="articles.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Technical Articles
+            </a>
+            <a href="about.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> About Us
+            </a>
+            <a href="contact.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Contact Us
+            </a>
+            <div class="border-t border-slate-100 my-1"></div>
+            <a href="privacy.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Privacy Policy
+            </a>
+            <a href="terms.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Terms of Service
+            </a>
+            <a href="disclaimer.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Disclaimer
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
+        <div>
+          <span class="text-xs uppercase font-mono tracking-widest text-sky-600 font-semibold block">Tubular Profiles</span>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Metal Pipe & Hollow Tube Calculator</h1>
+        </div>
+        <div class="inline-flex p-1 bg-slate-100 rounded-xl text-xs font-bold text-slate-600 self-start sm:self-auto">
+          <button id="btnMetric" onclick="setUnit('metric')" class="px-3.5 py-1.5 rounded-lg bg-white text-sky-700 shadow-sm transition-all">Metric (mm)</button>
+          <button id="btnImperial" onclick="setUnit('imperial')" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all">Imperial (inch)</button>
+        </div>
+      </div>
+
+      <!-- Technical Diagram -->
+      <div class="mb-6 bg-slate-50 border border-slate-200/80 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-around gap-6">
+        <div class="w-44 h-36 flex items-center justify-center">
+          <svg viewBox="0 0 160 160" class="w-full h-full">
+            <!-- Outer circle -->
+            <circle cx="80" cy="80" r="65" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5" />
+            <!-- Inner cavity -->
+            <circle cx="80" cy="80" r="42" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="3 3" />
+            <!-- OD Line -->
+            <line x1="15" y1="80" x2="145" y2="80" stroke="#0f172a" stroke-width="1.3"/>
+            <circle cx="15" cy="80" r="2.5" fill="#0f172a"/>
+            <circle cx="145" cy="80" r="2.5" fill="#0f172a"/>
+            <text x="80" y="73" text-anchor="middle" font-size="10" font-family="monospace" fill="#0f172a" font-weight="bold">OD</text>
+            <!-- WT Line -->
+            <line x1="80" y1="15" x2="80" y2="38" stroke="#dc2626" stroke-width="2" />
+            <text x="94" y="30" font-size="10" font-family="monospace" fill="#dc2626" font-weight="bold">WT</text>
+            <!-- ID text -->
+            <text x="80" y="93" text-anchor="middle" font-size="9" font-family="monospace" fill="#64748b">Inner Dia (ID)</text>
+          </svg>
+        </div>
+        <div class="text-xs text-slate-600 space-y-1.5 flex-1">
+          <div class="font-bold text-slate-900 text-sm">Cross-Section Legend:</div>
+          <p><span class="font-mono text-sky-600 font-bold">Outer Diameter (OD):</span> Total exterior circular diameter of pipe or tube.</p>
+          <p><span class="font-mono text-rose-600 font-bold">Wall Thickness (WT):</span> Solid metal wall gauge.</p>
+          <p><span class="font-mono text-slate-700 font-bold">Inner Diameter (ID):</span> Calculated as <span class="font-mono">OD - (2 &times; WT)</span>.</p>
+          <p><span class="font-mono text-slate-700 font-bold">Length (L):</span> Total longitudinal span / cut length of the pipe.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Material & Density</label>
+          <select id="pipeMat" onchange="calcPipe()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all">
+            <option value="7.85">MS / Carbon Steel (7.85 g/cm³)</option>
+            <option value="8.00">Stainless Steel 304 / 316 (8.00 g/cm³)</option>
+            <option value="2.70">Aluminium (2.70 g/cm³)</option>
+            <option value="8.50">Brass (8.50 g/cm³)</option>
+            <option value="8.96">Copper (8.96 g/cm³)</option>
+            <option value="4.51">Titanium (4.51 g/cm³)</option>
+            <option value="7.14">Zinc (7.14 g/cm³)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" id="lblOD">Outer Diameter - OD (mm)</label>
+          <input type="number" id="pipeOD" value="60.3" min="0.01" step="any" oninput="calcPipe()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" id="lblWT">Wall Thickness - WT (mm)</label>
+          <input type="number" id="pipeWT" value="3.9" min="0.01" step="any" oninput="calcPipe()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" id="lblLen">Total Length (mm)</label>
+          <input type="number" id="pipeLen" value="1000" min="0.01" step="any" oninput="calcPipe()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Quantity (Pcs)</label>
+          <input type="number" id="pipeQty" value="1" min="1" step="1" oninput="calcPipe()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all">
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-br from-slate-900 to-sky-950 text-white rounded-2xl p-6 text-center shadow-lg">
+        <span class="text-xs uppercase text-sky-300 font-bold tracking-wider">Calculated Theoretical Pipe Weight</span>
+        <div class="grid grid-cols-2 gap-4 mt-3">
+          <div class="bg-white/5 rounded-xl p-3 border border-white/10">
+            <div class="text-xs text-slate-400">Total Weight (kg)</div>
+            <div class="text-2xl sm:text-3xl font-black text-white font-mono mt-1" id="pipeResultKg">0.00 kg</div>
+          </div>
+          <div class="bg-white/5 rounded-xl p-3 border border-white/10">
+            <div class="text-xs text-slate-400">Total Weight (lbs)</div>
+            <div class="text-2xl sm:text-3xl font-black text-sky-300 font-mono mt-1" id="pipeResultLbs">0.00 lbs</div>
+          </div>
+        </div>
+        <div class="mt-3 text-[11px] text-slate-400 font-mono" id="pipeDetails">Per Piece: ~ 0.00 kg | Unit Weight: ~ 0.00 kg/m | Inner Dia: 0.00 mm</div>
+        
+        <div class="mt-4 pt-3 border-t border-white/10 flex gap-2 justify-center">
+          <button type="button" onclick="copyPipeSummary()" id="btnCopy" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold transition-all shadow-md">
+            Copy Summary
+          </button>
+          <button type="button" onclick="window.print()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition-all">
+            Print
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- How This Calculator Works Section -->
+    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-4">
+      <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+        <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        How This Calculator Works
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        The theoretical weight of a hollow metal pipe is computed by subtracting the inner cylinder volume from the outer cylinder volume, then multiplying by the material density:
+      </p>
+      <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 text-xs sm:text-sm font-mono text-slate-800 space-y-2">
+        <div><strong>Step 1 (Inner Diameter):</strong> ID = OD - (2 &times; WT)</div>
+        <div><strong>Step 2 (Cross-Section Area):</strong> Area = &pi; &times; (OD - WT) &times; WT mm²</div>
+        <div><strong>Step 3 (Volume cm³):</strong> (Area mm² &times; Length mm) &divide; 1,000</div>
+        <div><strong>Step 4 (Single Weight kg):</strong> (Volume cm³ &times; Density g/cm³) &divide; 1,000</div>
+        <div><strong>Standard Carbon Steel Quick Formula:</strong> Weight (kg/m) = (OD - WT) &times; WT &times; 0.02466 (OD & WT in mm)</div>
+      </div>
+    </div>
+
+    <!-- Reference Chart & FAQ Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200">
+        <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          Material Density Reference
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 text-slate-500 uppercase font-mono">
+              <tr>
+                <th class="p-2.5">Material</th>
+                <th class="p-2.5 text-right">Density (g/cm³)</th>
+                <th class="p-2.5 text-right">lbs/in³</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 font-mono text-slate-700">
+              <tr><td class="p-2.5 font-sans">Mild Steel / Carbon Steel</td><td class="p-2.5 text-right font-bold text-slate-900">7.85</td><td class="p-2.5 text-right">0.2836</td></tr>
+              <tr><td class="p-2.5 font-sans">Stainless Steel (304 / 316)</td><td class="p-2.5 text-right font-bold text-slate-900">8.00</td><td class="p-2.5 text-right">0.2890</td></tr>
+              <tr><td class="p-2.5 font-sans">Aluminium (6061 / 5052)</td><td class="p-2.5 text-right font-bold text-slate-900">2.70</td><td class="p-2.5 text-right">0.0975</td></tr>
+              <tr><td class="p-2.5 font-sans">Brass (C36000)</td><td class="p-2.5 text-right font-bold text-slate-900">8.50</td><td class="p-2.5 text-right">0.3071</td></tr>
+              <tr><td class="p-2.5 font-sans">Copper (Pure C11000)</td><td class="p-2.5 text-right font-bold text-slate-900">8.96</td><td class="p-2.5 text-right">0.3237</td></tr>
+              <tr><td class="p-2.5 font-sans">Titanium (Grade 5)</td><td class="p-2.5 text-right font-bold text-slate-900">4.51</td><td class="p-2.5 text-right">0.1629</td></tr>
+              <tr><td class="p-2.5 font-sans">Zinc Alloy</td><td class="p-2.5 text-right font-bold text-slate-900">7.14</td><td class="p-2.5 text-right">0.2580</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200">
+        <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Frequently Asked Questions (FAQ)
+        </h3>
+        <div class="space-y-3.5 text-xs text-slate-600">
+          <div>
+            <div class="font-bold text-slate-800">Why does physical scale weight differ from theoretical weight?</div>
+            <p class="mt-0.5">Manufacturing rolling tolerances (&plusmn;5% to 10%), mill scales, internal seam welds, and slight alloy composition variations affect actual physical scale weight.</p>
+          </div>
+          <div>
+            <div class="font-bold text-slate-800">What is the difference between Pipe and Tube?</div>
+            <p class="mt-0.5">Pipes are specified by Nominal Bore (internal fluid capacity) and Wall Schedule (e.g. Sch 40), whereas tubes are designated by precise Outer Diameter (OD) and Wall Thickness (WT).</p>
+          </div>
+          <div>
+            <div class="font-bold text-slate-800">How do I calculate per-meter or per-foot pipe weight?</div>
+            <p class="mt-0.5">Enter 1000 mm (1 meter) in Metric mode or 12 inches (1 foot) in Imperial mode to get instantaneous unit linear weight.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer with All Calculator Links & Site Directory -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-12 mt-16 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-slate-800">
+        
+        <!-- Brand Info -->
+        <div class="space-y-3 md:col-span-1">
+          <div class="flex items-center space-x-2 text-white font-extrabold text-base">
+            <div class="w-7 h-7 rounded-lg bg-sky-600 flex items-center justify-center text-white">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l7 4v6l-7 4-7-4V6z"/></svg>
+            </div>
+            <span>Metaliq<span class="text-sky-400">Forge</span></span>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Industrial metal weight and dimension engineering platform. High-accuracy theoretical calculators for structural fabrication, machining, and logistics.
+          </p>
+        </div>
+
+        <!-- Column 1: Calculators List (Footer Menu) -->
+        <div class="space-y-2.5 md:col-span-2">
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-200 block mb-2">Metal & Fastener Calculators</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <a href="bolt-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Hex & Allen Bolt Calculator
+            </a>
+            <a href="metal-pipe-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Pipe & Tube Calculator
+            </a>
+            <a href="metal-plate-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Plate & Sheet Calculator
+            </a>
+            <a href="metal-round-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Solid Round Bar / Rod Calculator
+            </a>
+            <a href="metal-square-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Square Bar Calculator
+            </a>
+            <a href="metal-hexagonal-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Hexagonal Bar Calculator
+            </a>
+            <a href="metal-angle-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Angle / L-Profile Calculator
+            </a>
+            <a href="metal-square-tube-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Square & Rectangular Tube
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Legal & Navigation -->
+        <div class="space-y-2.5 md:col-span-1">
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-200 block mb-2">Navigation & Legal</span>
+          <ul class="space-y-1.5 text-xs">
+            <li><a href="resources.html" class="text-slate-300 hover:text-white transition-colors">Resources & Densities</a></li>
+            <li><a href="articles.html" class="text-slate-300 hover:text-white transition-colors">Technical Articles</a></li>
+            <li><a href="about.html" class="text-slate-300 hover:text-white transition-colors">About MetaliqForge</a></li>
+            <li><a href="contact.html" class="text-slate-300 hover:text-white transition-colors">Contact Engineering Team</a></li>
+            <li><a href="privacy.html" class="text-slate-300 hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="terms.html" class="text-slate-300 hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="disclaimer.html" class="text-slate-300 hover:text-white transition-colors">Technical Disclaimer</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="text-center sm:flex sm:justify-between sm:items-center text-slate-500 text-xs">
+        <div>&copy; <span id="currentYear">2026</span> MetaliqForge. All rights reserved.</div>
+        <div class="mt-2 sm:mt-0">Precision Theoretical Metal Engineering</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const yr = document.getElementById('currentYear');
+    if (yr) yr.textContent = new Date().getFullYear();
+    const menuBtn = document.getElementById('menuDropdownBtn');
+    const menuDropdown = document.getElementById('menuDropdownMenu');
+    if (menuBtn && menuDropdown) {
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menuDropdown.classList.toggle('hidden');
+      });
+      document.addEventListener('click', () => menuDropdown.classList.add('hidden'));
+    }
+  </script>
+
+  <script>
+    let currentUnit = 'metric';
+    const KG_TO_LBS = 2.20462262;
+
+    function setUnit(unit) {
+      if (currentUnit === unit) return;
+      currentUnit = unit;
+
+      const btnMetric = document.getElementById('btnMetric');
+      const btnImperial = document.getElementById('btnImperial');
+      const lblOD = document.getElementById('lblOD');
+      const lblWT = document.getElementById('lblWT');
+      const lblLen = document.getElementById('lblLen');
+
+      const inputOD = document.getElementById('pipeOD');
+      const inputWT = document.getElementById('pipeWT');
+      const inputLen = document.getElementById('pipeLen');
+
+      if (unit === 'imperial') {
+        btnImperial.className = 'px-3.5 py-1.5 rounded-lg bg-white text-sky-700 shadow-sm transition-all';
+        btnMetric.className = 'px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all';
+
+        lblOD.textContent = 'Outer Diameter (OD) (inch)';
+        lblWT.textContent = 'Wall Thickness (WT) (inch)';
+        lblLen.textContent = 'Length (inch)';
+
+        if (inputOD.value) inputOD.value = (parseFloat(inputOD.value) / 25.4).toFixed(3);
+        if (inputWT.value) inputWT.value = (parseFloat(inputWT.value) / 25.4).toFixed(3);
+        if (inputLen.value) inputLen.value = (parseFloat(inputLen.value) / 25.4).toFixed(2);
+      } else {
+        btnMetric.className = 'px-3.5 py-1.5 rounded-lg bg-white text-sky-700 shadow-sm transition-all';
+        btnImperial.className = 'px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all';
+
+        lblOD.textContent = 'Outer Diameter (OD) (mm)';
+        lblWT.textContent = 'Wall Thickness (WT) (mm)';
+        lblLen.textContent = 'Length (mm)';
+
+        if (inputOD.value) inputOD.value = (parseFloat(inputOD.value) * 25.4).toFixed(1);
+        if (inputWT.value) inputWT.value = (parseFloat(inputWT.value) * 25.4).toFixed(2);
+        if (inputLen.value) inputLen.value = (parseFloat(inputLen.value) * 25.4).toFixed(1);
+      }
+
+      calcPipe();
+    }
+
+    function calcPipe() {
+      const density = parseFloat(document.getElementById('pipeMat').value) || 7.85;
+      let od = parseFloat(document.getElementById('pipeOD').value) || 0;
+      let wt = parseFloat(document.getElementById('pipeWT').value) || 0;
+      let len = parseFloat(document.getElementById('pipeLen').value) || 0;
+      const qty = parseInt(document.getElementById('pipeQty').value) || 1;
+
+      if (od <= 0 || wt <= 0 || len <= 0 || qty <= 0 || (2 * wt >= od)) {
+        document.getElementById('pipeResultKg').textContent = '0.00 kg';
+        document.getElementById('pipeResultLbs').textContent = '0.00 lbs';
+        if (2 * wt >= od && od > 0) {
+          document.getElementById('pipeDetails').textContent = 'Error: Wall thickness (WT × 2) must be less than Outer Diameter (OD).';
+        } else {
+          document.getElementById('pipeDetails').textContent = 'Per Piece: 0.00 kg | Unit Weight: 0.00 kg/m | Inner Dia: 0.00 mm';
+        }
+        return;
+      }
+
+      let od_mm = od;
+      let wt_mm = wt;
+      let len_mm = len;
+
+      if (currentUnit === 'imperial') {
+        od_mm = od * 25.4;
+        wt_mm = wt * 25.4;
+        len_mm = len * 25.4;
+      }
+
+      const id_mm = od_mm - (2 * wt_mm);
+      const area_mm2 = Math.PI * (od_mm - wt_mm) * wt_mm;
+      const volume_cm3 = (area_mm2 * len_mm) / 1000.0;
+
+      const weight_single_kg = (volume_cm3 * density) / 1000.0;
+      const total_kg = weight_single_kg * qty;
+
+      const weight_single_lbs = weight_single_kg * KG_TO_LBS;
+      const total_lbs = total_kg * KG_TO_LBS;
+
+      const weight_per_m = (area_mm2 * 1000.0 / 1000.0 * density) / 1000.0;
+
+      document.getElementById('pipeResultKg').textContent = `~ ${total_kg.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} kg`;
+      document.getElementById('pipeResultLbs').textContent = `~ ${total_lbs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} lbs`;
+
+      let unitLabel = currentUnit === 'metric' ? 'mm' : 'inch';
+      let idDisplay = currentUnit === 'metric' ? id_mm.toFixed(2) : (id_mm / 25.4).toFixed(3);
+
+      document.getElementById('pipeDetails').textContent = `Per Piece: ~ ${weight_single_kg.toFixed(2)} kg (${weight_single_lbs.toFixed(2)} lbs) | Unit Weight: ~ ${weight_per_m.toFixed(2)} kg/m | ID: ${idDisplay} ${unitLabel}`;
+    }
+
+    function copyPipeSummary() {
+      const matSelect = document.getElementById('pipeMat');
+      const matName = matSelect.options[matSelect.selectedIndex].text;
+      const od = document.getElementById('pipeOD').value;
+      const wt = document.getElementById('pipeWT').value;
+      const len = document.getElementById('pipeLen').value;
+      const qty = document.getElementById('pipeQty').value;
+      const unit = currentUnit === 'metric' ? 'mm' : 'inch';
+      const kg = document.getElementById('pipeResultKg').textContent;
+      const lbs = document.getElementById('pipeResultLbs').textContent;
+      const details = document.getElementById('pipeDetails').textContent;
+
+      const summary = `MetaliqForge - Metal Pipe & Tube Weight Summary:\nMaterial: ${matName}\nDimensions: OD ${od}${unit} x WT ${wt}${unit} x Length ${len}${unit}\nQuantity: ${qty} Pcs\n${details}\nTotal Weight: ${kg} / ${lbs}`;
+
+      navigator.clipboard.writeText(summary).then(() => {
+        const btn = document.getElementById('btnCopy');
+        const origText = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = origText; }, 2000);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', calcPipe);
+  </script>
+</body>
+</html>
