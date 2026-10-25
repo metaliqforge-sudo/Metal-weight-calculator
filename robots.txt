@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-
-# Mediapartners-Google for AdSense crawling
-User-agent: Mediapartners-Google
-Allow: /
-
-Sitemap: https://metaliqforge.in/sitemap.xml
