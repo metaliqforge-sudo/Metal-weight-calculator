@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Technical Guides & Articles | MetaliqForge</title>
+  <meta name="description" content="Technical guides on metal rolling tolerances, pipe schedule weight formulas, structural angle calculations, stainless steel grades, and bolt property classes.">
+  <link rel="canonical" href="https://metaliqforge.in/articles.html">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center space-x-2.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform duration-200">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l7 4v6l-7 4-7-4V6z"/>
+            <path d="M12 16v6"/>
+            <path d="M8 18h8"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-slate-900 leading-none">
+            Metaliq<span class="text-sky-600">Forge</span>
+          </span>
+          <span class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5">INDUSTRIAL METAL & FASTENER CALCULATOR</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav & Dropdown Menu -->
+      <div class="flex items-center gap-3">
+        <nav class="hidden md:flex items-center space-x-1">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Home</a>
+          <a href="resources.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Resources</a>
+          <a href="articles.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Articles</a>
+          <a href="about.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">About Us</a>
+          <a href="contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Contact Us</a>
+        </nav>
+
+        <div class="relative">
+          <button id="menuDropdownBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all focus:outline-none">
+            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+            </svg>
+            <span>Menu</span>
+            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+
+          <div id="menuDropdownMenu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-200/80 py-2 z-50">
+            <div class="px-3 py-1.5 border-b border-slate-100">
+              <span class="text-xs uppercase font-bold text-slate-400 tracking-wider">Site Navigation</span>
+            </div>
+            <a href="index.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Home
+            </a>
+            <a href="resources.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Resources & Densities
+            </a>
+            <a href="articles.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Technical Articles
+            </a>
+            <a href="about.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> About Us
+            </a>
+            <a href="contact.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Contact Us
+            </a>
+            <div class="border-t border-slate-100 my-1"></div>
+            <a href="privacy.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Privacy Policy
+            </a>
+            <a href="terms.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Terms of Service
+            </a>
+            <a href="disclaimer.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Disclaimer
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-sky-950 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 max-w-3xl">
+        <span class="text-xs uppercase font-mono tracking-widest text-sky-400 font-semibold mb-2 block">Engineering Knowledge Base</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-3">Metal Profiles & Fastener Engineering Guides</h1>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          In-depth technical papers on steel pipe schedules, structural angle geometries, hot-rolling mill tolerances, stainless steel metallurgy, and fastener high-tensile property classes.
+        </p>
+      </div>
+    </section>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between hover:border-cyan-400 hover:shadow-md transition-all">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-semibold px-2 py-0.5 bg-cyan-50 text-cyan-700 rounded-md">Pipes & Tubes</span>
+            <span class="text-[11px] text-slate-400 font-mono">6 min read</span>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 leading-snug">
+            Hollow Pipe vs. Solid Round Bar: Strength-to-Weight Ratio in Structural Design
+          </h2>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Why do structural frameworks and crane booms utilize hollow pipes instead of solid shafts? Learn how the polar moment of inertia ($J$) and radius of gyration maximize bending and torsional stiffness while cutting material deadweight by over 50%.
+          </p>
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px] text-slate-700 font-mono">
+            Weight reduction ratio: 1 - (ID&sup2; / OD&sup2;)
+          </div>
+        </div>
+        <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-[11px] text-slate-400">Structural Mechanics</span>
+          <a href="metal-pipe-calculator.html" class="text-xs font-bold text-sky-600 hover:text-sky-700">Calculate Pipe &rarr;</a>
+        </div>
+      </article>
+
+      <article class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between hover:border-indigo-400 hover:shadow-md transition-all">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-semibold px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded-md">Metallurgy</span>
+            <span class="text-[11px] text-slate-400 font-mono">7 min read</span>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 leading-snug">
+            Theoretical vs. Actual Scale Weight: Understanding Mill Rolling Tolerances
+          </h2>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Steel plates and structural beams rarely match theoretical weight exactly. This guide explains ASTM A6/ISO 7452 dimensional rolling tolerances (&plusmn;2% to &plusmn;8%), mill scale, galvanizing zinc pickup, and crown thickness variations in hot-rolled steel.
+          </p>
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px] text-slate-700 font-mono">
+            Commercial tolerance: ASTM A6 / EN 10029
+          </div>
+        </div>
+        <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-[11px] text-slate-400">Quality Control</span>
+          <a href="metal-plate-calculator.html" class="text-xs font-bold text-sky-600 hover:text-sky-700">Calculate Plate &rarr;</a>
+        </div>
+      </article>
+
+      <article class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between hover:border-orange-400 hover:shadow-md transition-all">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-semibold px-2 py-0.5 bg-orange-50 text-orange-700 rounded-md">L-Profiles</span>
+            <span class="text-[11px] text-slate-400 font-mono">5 min read</span>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 leading-snug">
+            Equal vs. Unequal Structural Angles: Accurate Corner Area Formulation
+          </h2>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Calculating structural angle weight requires subtracting the overlapping corner junction to avoid double-counting mass. Master the cross-sectional formula: Area = [(Leg A + Leg B - Thickness) &times; Thickness] and inner fillet radius impact.
+          </p>
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px] text-slate-700 font-mono">
+            Area = (A + B - T) &times; T mm&sup2;
+          </div>
+        </div>
+        <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-[11px] text-slate-400">Civil & Truss Framing</span>
+          <a href="metal-angle-calculator.html" class="text-xs font-bold text-sky-600 hover:text-sky-700">Calculate Angle &rarr;</a>
+        </div>
+      </article>
+
+      <article class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between hover:border-sky-400 hover:shadow-md transition-all">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-semibold px-2 py-0.5 bg-sky-50 text-sky-700 rounded-md">Fastener Design</span>
+            <span class="text-[11px] text-slate-400 font-mono">6 min read</span>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 leading-snug">
+            Full Thread (DIN 933) vs. Half Thread (DIN 931) Bolts: Shear Load Mechanics
+          </h2>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Why half-thread bolts are mandatory for heavy shear connections. An unthreaded shank prevents stress-concentration notches across the joint shear plane, dramatically increasing fatigue resistance and joint rigidity.
+          </p>
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px] text-slate-700 font-mono">
+            Standards: DIN 933 vs DIN 931
+          </div>
+        </div>
+        <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-[11px] text-slate-400">Mechanical Fasteners</span>
+          <a href="bolt-calculator.html" class="text-xs font-bold text-sky-600 hover:text-sky-700">Calculate Bolt &rarr;</a>
+        </div>
+      </article>
+
+      <article class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between hover:border-emerald-400 hover:shadow-md transition-all">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-semibold px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-md">Alloy Chemistry</span>
+            <span class="text-[11px] text-slate-400 font-mono">7 min read</span>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 leading-snug">
+            Stainless Steel Comparison: SS 202 vs. SS 304 (A2) vs. SS 316 (A4)
+          </h2>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            All three grades share a similar density (~7.93 to 8.00 g/cm&sup3;), yet their chloride resistance varies drastically. Learn when 2% Molybdenum in SS 316 is strictly required to prevent catastrophic pitting corrosion in marine environments.
+          </p>
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px] text-slate-700 font-mono">
+            ISO 3506-1 / ASTM F593
+          </div>
+        </div>
+        <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-[11px] text-slate-400">Corrosion Engineering</span>
+          <a href="resources.html" class="text-xs font-bold text-sky-600 hover:text-sky-700">View Densities &rarr;</a>
+        </div>
+      </article>
+
+      <article class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between hover:border-violet-400 hover:shadow-md transition-all">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-semibold px-2 py-0.5 bg-violet-50 text-violet-700 rounded-md">Tensile Strength</span>
+            <span class="text-[11px] text-slate-400 font-mono">5 min read</span>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 leading-snug">
+            Decoding High-Tensile Bolt Classes: Class 4.6, 8.8, 10.9, and 12.9
+          </h2>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Learn the exact ISO 898-1 formula to decode head stamping numbers: First digit &times; 100 = Nominal Tensile Strength (MPa); First digit &times; Second digit &times; 10 = Yield Strength (MPa). Ensure structural safety under extreme dynamic loads.
+          </p>
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px] text-slate-700 font-mono">
+            ISO 898-1 / DIN EN ISO 898
+          </div>
+        </div>
+        <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-[11px] text-slate-400">Strength Ratings</span>
+          <a href="bolt-calculator.html" class="text-xs font-bold text-sky-600 hover:text-sky-700">Calculate Bolt Loads &rarr;</a>
+        </div>
+      </article>
+    </div>
+  </main>
+    <!-- Footer with All Calculator Links & Site Directory -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-12 mt-16 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-slate-800">
+        
+        <!-- Brand Info -->
+        <div class="space-y-3 md:col-span-1">
+          <div class="flex items-center space-x-2 text-white font-extrabold text-base">
+            <div class="w-7 h-7 rounded-lg bg-sky-600 flex items-center justify-center text-white">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l7 4v6l-7 4-7-4V6z"/></svg>
+            </div>
+            <span>Metaliq<span class="text-sky-400">Forge</span></span>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Universal industrial metal profile and fastener engineering suite. High-accuracy theoretical calculators for beams, plates, pipes, bars, tubes, channels, joists, and bolts.
+          </p>
+        </div>
+
+        <!-- Column 1: Calculators List (Footer Menu) -->
+        <div class="space-y-2.5 md:col-span-2">
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-200 block mb-2">Metal & Fastener Calculators</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <a href="bolt-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Hex & Allen Bolt / Studs
+            </a>
+            <a href="metal-pipe-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Pipe & Round Tube
+            </a>
+            <a href="metal-plate-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Plate & Sheet
+            </a>
+            <a href="metal-round-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Solid Round Bar / Rod
+            </a>
+            <a href="metal-square-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Square Bar
+            </a>
+            <a href="metal-hexagonal-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Hexagonal Bar (AF)
+            </a>
+            <a href="metal-angle-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Equal & Unequal Angle / L-Bar
+            </a>
+            <a href="metal-square-tube-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Square & Rectangular Box Tube
+            </a>
+            <a href="metal-channel-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Channel / C-Section (ISMC)
+            </a>
+            <a href="metal-joist-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Joist / I-Beam (ISMB)
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Legal & Navigation -->
+        <div class="space-y-2.5 md:col-span-1">
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-200 block mb-2">Navigation & Legal</span>
+          <ul class="space-y-1.5 text-xs">
+            <li><a href="resources.html" class="text-slate-300 hover:text-white transition-colors">Resources & Densities</a></li>
+            <li><a href="articles.html" class="text-slate-300 hover:text-white transition-colors">Technical Articles</a></li>
+            <li><a href="about.html" class="text-slate-300 hover:text-white transition-colors">About MetaliqForge</a></li>
+            <li><a href="contact.html" class="text-slate-300 hover:text-white transition-colors">Contact Engineering Team</a></li>
+            <li><a href="privacy.html" class="text-slate-300 hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="terms.html" class="text-slate-300 hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="disclaimer.html" class="text-slate-300 hover:text-white transition-colors">Technical Disclaimer</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="text-center sm:flex sm:justify-between sm:items-center text-slate-500 text-xs">
+        <div>&copy; <span id="currentYear">2026</span> MetaliqForge. All rights reserved.</div>
+        <div class="mt-2 sm:mt-0">Precision Theoretical Metal & Fastener Engineering Suite</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const yr = document.getElementById('currentYear');
+    if (yr) yr.textContent = new Date().getFullYear();
+    const menuBtn = document.getElementById('menuDropdownBtn');
+    const menuDropdown = document.getElementById('menuDropdownMenu');
+    if (menuBtn && menuDropdown) {
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menuDropdown.classList.toggle('hidden');
+      });
+      document.addEventListener('click', () => menuDropdown.classList.add('hidden'));
+    }
+  </script>
+
+  <!-- Universal Cookie Consent Banner -->
+  <div id="cookieConsentBanner" class="fixed bottom-0 inset-x-0 z-50 p-4 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-800 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4 max-w-6xl mx-auto sm:mb-4 sm:rounded-2xl transition-transform duration-300 transform translate-y-full">
+    <div class="text-xs text-slate-300 leading-relaxed">
+      We use cookies to enhance user experience, calculate theoretical loads accurately, and deliver relevant content. By using our website, you agree to our 
+      <a href="privacy.html" class="text-sky-400 hover:underline font-semibold">Privacy Policy</a> and 
+      <a href="terms.html" class="text-sky-400 hover:underline font-semibold">Terms of Service</a>.
+    </div>
+    <div class="flex items-center gap-2 flex-shrink-0">
+      <button type="button" onclick="acceptCookies()" class="bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition-all shadow-md cursor-pointer">
+        Accept All
+      </button>
+      <button type="button" onclick="dismissCookies()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2.5 rounded-xl transition-all border border-slate-700 cursor-pointer">
+        Decline
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function acceptCookies() {
+      localStorage.setItem('metaliqforge_cookie_consent', 'accepted');
+      hideCookieBanner();
+    }
+    function dismissCookies() {
+      localStorage.setItem('metaliqforge_cookie_consent', 'declined');
+      hideCookieBanner();
+    }
+    function hideCookieBanner() {
+      const banner = document.getElementById('cookieConsentBanner');
+      if (banner) banner.classList.add('translate-y-full');
+    }
+    function checkCookieConsent() {
+      const consent = localStorage.getItem('metaliqforge_cookie_consent');
+      if (!consent) {
+        setTimeout(() => {
+          const banner = document.getElementById('cookieConsentBanner');
+          if (banner) banner.classList.remove('translate-y-full');
+        }, 1000);
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkCookieConsent);
+    } else {
+      checkCookieConsent();
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaliqForge | Industrial Metal & Fastener Weight Calculators</title>
+  <meta name="description" content="Free engineering suite to calculate theoretical weight for Bolts, Metal Plates, Hollow Pipes, Solid Round Bars, Square Bars, Hexagonal Bars, Angles, and Square Tubes.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center space-x-2.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform duration-200">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l7 4v6l-7 4-7-4V6z"/>
+            <path d="M12 16v6"/>
+            <path d="M8 18h8"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-slate-900 leading-none">
+            Metaliq<span class="text-sky-600">Forge</span>
+          </span>
+          <span class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5">INDUSTRIAL METAL WEIGHT CALCULATOR</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav & Dropdown Menu -->
+      <div class="flex items-center gap-3">
+        <nav class="hidden md:flex items-center space-x-1">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-sky-600 bg-sky-50 transition-colors">Home</a>
+          <a href="resources.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Resources</a>
+          <a href="articles.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Articles</a>
+          <a href="about.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">About Us</a>
+          <a href="contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Contact Us</a>
+        </nav>
+
+        <div class="relative">
+          <button id="menuDropdownBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all focus:outline-none">
+            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+            </svg>
+            <span>Menu</span>
+            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+
+          <div id="menuDropdownMenu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-200/80 py-2 z-50">
+            <div class="px-3 py-1.5 border-b border-slate-100">
+              <span class="text-xs uppercase font-bold text-slate-400 tracking-wider">Site Navigation</span>
+            </div>
+            <a href="index.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Home
+            </a>
+            <a href="resources.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Resources & Densities
+            </a>
+            <a href="articles.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Technical Articles
+            </a>
+            <a href="about.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> About Us
+            </a>
+            <a href="contact.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Contact Us
+            </a>
+            <div class="border-t border-slate-100 my-1"></div>
+            <a href="privacy.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Privacy Policy
+            </a>
+            <a href="terms.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Terms of Service
+            </a>
+            <a href="disclaimer.html" class="flex items-center px-4 py-2.5 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Disclaimer
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-sky-950 rounded-3xl p-6 sm:p-12 text-white shadow-xl relative overflow-hidden text-center sm:text-left">
+      <div class="relative z-10 max-w-2xl">
+        <span class="text-xs uppercase font-mono tracking-widest text-sky-400 font-semibold mb-2 block">Engineering Calculation Suite</span>
+        <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-4">Precision Metal & Fastener Weight Calculators</h1>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Select an industrial metal profile or fastener type below to open a specialized calculator with dynamic geometry models and custom density controls.
+        </p>
+      </div>
+    </section>
+
+    <!-- Calculators Grid (10 Tools) -->
+    <section class="space-y-4">
+      <div class="border-b border-slate-200 pb-3 flex items-center justify-between">
+        <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Available Calculators</h2>
+        <span class="text-xs font-mono text-slate-500">10 Specialized Tools</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        <!-- Tool 1: Bolt Calculator -->
+        <a href="bolt-calculator.html" class="group bg-white rounded-3xl p-5 border-2 border-slate-200 hover:border-sky-500 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-sky-600 group-hover:text-white transition-all">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 2h10l3 5-3 5H7L4 7z"/>
+                <rect x="9" y="12" width="6" height="10" rx="1"/>
+                <line x1="9" y1="13" x2="15" y2="13"/>
+                <line x1="9" y1="17" x2="15" y2="17"/>
+              </svg>
+            </div>
+            <span class="text-[11px] font-mono uppercase font-bold text-sky-600 bg-sky-50 px-2 py-0.5 rounded-md">Fasteners</span>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors mt-1">Hex & Allen Bolt</h3>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              Hex bolts, allen bolts, studs, and grub screws with nut selection.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-sky-600">
+            <span>Calculate</span>
+            <span class="text-base group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Tool 2: Metal Pipe Calculator -->
+        <a href="metal-pipe-calculator.html" class="group bg-white rounded-3xl p-5 border-2 border-slate-200 hover:border-cyan-500 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-cyan-600 group-hover:text-white transition-all">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"/>
+                <circle cx="12" cy="12" r="5"/>
+              </svg>
+            </div>
+            <span class="text-[11px] font-mono uppercase font-bold text-cyan-600 bg-cyan-50 px-2 py-0.5 rounded-md">Hollow Tubular</span>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-cyan-600 transition-colors mt-1">Pipe & Tube</h3>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              Round hollow pipes using Outer Diameter, Wall Thickness, and Length.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-cyan-600">
+            <span>Calculate</span>
+            <span class="text-base group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Tool 3: Metal Plate Calculator -->
+        <a href="metal-plate-calculator.html" class="group bg-white rounded-3xl p-5 border-2 border-slate-200 hover:border-indigo-500 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                <polyline points="2 17 12 22 22 17"/>
+              </svg>
+            </div>
+            <span class="text-[11px] font-mono uppercase font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">Flat Metal</span>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mt-1">Plate & Sheet</h3>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              Flat sheet and plate mass from length, width, and gauge thickness.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-indigo-600">
+            <span>Calculate</span>
+            <span class="text-base group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Tool 4: Solid Round Bar Calculator -->
+        <a href="metal-round-bar-calculator.html" class="group bg-white rounded-3xl p-5 border-2 border-slate-200 hover:border-emerald-500 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+              </svg>
+            </div>
+            <span class="text-[11px] font-mono uppercase font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">Solid Cylindrical</span>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors mt-1">Round Bar / Rod</h3>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              Solid round bars, shafts, pins, and cylinders by diameter and length.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-600">
+            <span>Calculate</span>
+            <span class="text-base group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Tool 5: Square Bar Calculator -->
+        <a href="metal-square-bar-calculator.html" class="group bg-white rounded-3xl p-5 border-2 border-slate-200 hover:border-amber-500 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-amber-600 group-hover:text-white transition-all">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                <line x1="4" y1="4" x2="20" y2="20"/>
+              </svg>
+            </div>
+            <span class="text-[11px] font-mono uppercase font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md">Square Solid</span>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-amber-600 transition-colors mt-1">Square Bar</h3>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              Solid square billets, key steels, and square structural profiles.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amber-600">
+            <span>Calculate</span>
+            <span class="text-base group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Tool 6: Hexagonal Bar Calculator (NEW) -->
+        <a href="metal-hexagonal-bar-calculator.html" class="group bg-white rounded-3xl p-5 border-2 border-slate-200 hover:border-teal-500 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-teal-600 group-hover:text-white transition-all">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12,2 21,7 21,17 12,22 3,17 3,7"/>
+              </svg>
+            </div>
+            <span class="text-[11px] font-mono uppercase font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-md">Hex Profile</span>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-teal-600 transition-colors mt-1">Hexagonal Bar</h3>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              Solid hex rods and machining bars measured across flats (AF).
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-teal-600">
+            <span>Calculate</span>
+            <span class="text-base group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Tool 7: Metal Angle Calculator (NEW) -->
+        <a href="metal-angle-calculator.html" class="group bg-white rounded-3xl p-5 border-2 border-slate-200 hover:border-orange-500 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-orange-600 group-hover:text-white transition-all">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5,3 9,3 9,17 21,17 21,21 5,21"/>
+              </svg>
+            </div>
+            <span class="text-[11px] font-mono uppercase font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-md">L-Profile</span>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-orange-600 transition-colors mt-1">Angle / L-Bar</h3>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              Equal and unequal angle iron, structural L-sections, and brackets.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-orange-600">
+            <span>Calculate</span>
+            <span class="text-base group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Tool 8: Square & Rectangular Tube Calculator (NEW) -->
+        <a href="metal-square-tube-calculator.html" class="group bg-white rounded-3xl p-5 border-2 border-slate-200 hover:border-violet-500 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-violet-600 group-hover:text-white transition-all">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <rect x="7" y="7" width="10" height="10" rx="1"/>
+              </svg>
+            </div>
+            <span class="text-[11px] font-mono uppercase font-bold text-violet-600 bg-violet-50 px-2 py-0.5 rounded-md">Box Tube</span>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-violet-600 transition-colors mt-1">Square / Rect Tube</h3>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              Hollow box sections, square pipes, and rectangular structural tubing.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-violet-600">
+            <span>Calculate</span>
+            <span class="text-base group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Tool 9: Channel Calculator (NEW) -->
+        <a href="metal-channel-calculator.html" class="group bg-white rounded-3xl p-5 border-2 border-slate-200 hover:border-blue-500 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 4H5v16h14"/>
+              </svg>
+            </div>
+            <span class="text-[11px] font-mono uppercase font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">C-Profile</span>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mt-1">C-Channel / ISMC</h3>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              Structural C-channels, purlins, and ISMC sections by web and flange dimensions.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-600">
+            <span>Calculate</span>
+            <span class="text-base group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Tool 10: Joist Calculator (NEW) -->
+        <a href="metal-joist-calculator.html" class="group bg-white rounded-3xl p-5 border-2 border-slate-200 hover:border-emerald-500 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 4h14M5 20h14M12 4v16"/>
+              </svg>
+            </div>
+            <span class="text-[11px] font-mono uppercase font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">I-Profile</span>
+            <h3 class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors mt-1">Joist / I-Beam</h3>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              Standard universal beams, joists, and ISMB sections with flange-web calculation.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-600">
+            <span>Calculate</span>
+            <span class="text-base group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+  </main>
+
+    <!-- Footer with All Calculator Links & Site Directory -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-12 mt-16 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-slate-800">
+        
+        <!-- Brand Info -->
+        <div class="space-y-3 md:col-span-1">
+          <div class="flex items-center space-x-2 text-white font-extrabold text-base">
+            <div class="w-7 h-7 rounded-lg bg-sky-600 flex items-center justify-center text-white">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l7 4v6l-7 4-7-4V6z"/></svg>
+            </div>
+            <span>Metaliq<span class="text-sky-400">Forge</span></span>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Universal industrial metal profile and fastener engineering suite. High-accuracy theoretical calculators for beams, plates, pipes, bars, tubes, channels, joists, and bolts.
+          </p>
+        </div>
+
+        <!-- Column 1: Calculators List (Footer Menu) -->
+        <div class="space-y-2.5 md:col-span-2">
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-200 block mb-2">Metal & Fastener Calculators</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <a href="bolt-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Hex & Allen Bolt / Studs
+            </a>
+            <a href="metal-pipe-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Pipe & Round Tube
+            </a>
+            <a href="metal-plate-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Plate & Sheet
+            </a>
+            <a href="metal-round-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Solid Round Bar / Rod
+            </a>
+            <a href="metal-square-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Square Bar
+            </a>
+            <a href="metal-hexagonal-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Hexagonal Bar (AF)
+            </a>
+            <a href="metal-angle-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Equal & Unequal Angle / L-Bar
+            </a>
+            <a href="metal-square-tube-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Square & Rectangular Box Tube
+            </a>
+            <a href="metal-channel-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Channel / C-Section (ISMC)
+            </a>
+            <a href="metal-joist-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Joist / I-Beam (ISMB)
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Legal & Navigation -->
+        <div class="space-y-2.5 md:col-span-1">
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-200 block mb-2">Navigation & Legal</span>
+          <ul class="space-y-1.5 text-xs">
+            <li><a href="resources.html" class="text-slate-300 hover:text-white transition-colors">Resources & Densities</a></li>
+            <li><a href="articles.html" class="text-slate-300 hover:text-white transition-colors">Technical Articles</a></li>
+            <li><a href="about.html" class="text-slate-300 hover:text-white transition-colors">About MetaliqForge</a></li>
+            <li><a href="contact.html" class="text-slate-300 hover:text-white transition-colors">Contact Engineering Team</a></li>
+            <li><a href="privacy.html" class="text-slate-300 hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="terms.html" class="text-slate-300 hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="disclaimer.html" class="text-slate-300 hover:text-white transition-colors">Technical Disclaimer</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="text-center sm:flex sm:justify-between sm:items-center text-slate-500 text-xs">
+        <div>&copy; <span id="currentYear">2026</span> MetaliqForge. All rights reserved.</div>
+        <div class="mt-2 sm:mt-0">Precision Theoretical Metal & Fastener Engineering Suite</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const yr = document.getElementById('currentYear');
+    if (yr) yr.textContent = new Date().getFullYear();
+    const menuBtn = document.getElementById('menuDropdownBtn');
+    const menuDropdown = document.getElementById('menuDropdownMenu');
+    if (menuBtn && menuDropdown) {
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menuDropdown.classList.toggle('hidden');
+      });
+      document.addEventListener('click', () => menuDropdown.classList.add('hidden'));
+    }
+  </script>
+
+  <!-- Universal Cookie Consent Banner -->
+  <div id="cookieConsentBanner" class="fixed bottom-0 inset-x-0 z-50 p-4 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-800 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4 max-w-6xl mx-auto sm:mb-4 sm:rounded-2xl transition-transform duration-300 transform translate-y-full">
+    <div class="text-xs text-slate-300 leading-relaxed">
+      We use cookies to enhance user experience, calculate theoretical loads accurately, and deliver relevant content. By using our website, you agree to our 
+      <a href="privacy.html" class="text-sky-400 hover:underline font-semibold">Privacy Policy</a> and 
+      <a href="terms.html" class="text-sky-400 hover:underline font-semibold">Terms of Service</a>.
+    </div>
+    <div class="flex items-center gap-2 flex-shrink-0">
+      <button type="button" onclick="acceptCookies()" class="bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition-all shadow-md cursor-pointer">
+        Accept All
+      </button>
+      <button type="button" onclick="dismissCookies()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2.5 rounded-xl transition-all border border-slate-700 cursor-pointer">
+        Decline
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function acceptCookies() {
+      localStorage.setItem('metaliqforge_cookie_consent', 'accepted');
+      hideCookieBanner();
+    }
+    function dismissCookies() {
+      localStorage.setItem('metaliqforge_cookie_consent', 'declined');
+      hideCookieBanner();
+    }
+    function hideCookieBanner() {
+      const banner = document.getElementById('cookieConsentBanner');
+      if (banner) banner.classList.add('translate-y-full');
+    }
+    function checkCookieConsent() {
+      const consent = localStorage.getItem('metaliqforge_cookie_consent');
+      if (!consent) {
+        setTimeout(() => {
+          const banner = document.getElementById('cookieConsentBanner');
+          if (banner) banner.classList.remove('translate-y-full');
+        }, 1000);
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkCookieConsent);
+    } else {
+      checkCookieConsent();
+    }
+  </script>
+
+</body>
+</html>

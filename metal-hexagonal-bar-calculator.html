@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metal Hexagonal Bar Weight Calculator | MetaliqForge</title>
+  <meta name="description" content="Calculate theoretical weight of solid hexagonal metal bars and hex rods across flats (AF) in metric (mm) and imperial (inch) units.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center space-x-2.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform duration-200">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l7 4v6l-7 4-7-4V6z"/>
+            <path d="M12 16v6"/>
+            <path d="M8 18h8"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-slate-900 leading-none">
+            Metaliq<span class="text-sky-600">Forge</span>
+          </span>
+          <span class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5">INDUSTRIAL METAL WEIGHT CALCULATOR</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav & Dropdown Menu -->
+      <div class="flex items-center gap-3">
+        <nav class="hidden md:flex items-center space-x-1">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Home</a>
+          <a href="resources.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Resources</a>
+          <a href="articles.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Articles</a>
+          <a href="about.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">About Us</a>
+          <a href="contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Contact Us</a>
+        </nav>
+
+        <div class="relative">
+          <button id="menuDropdownBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all focus:outline-none">
+            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+            </svg>
+            <span>Menu</span>
+            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+
+          <div id="menuDropdownMenu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-200/80 py-2 z-50">
+            <div class="px-3 py-1.5 border-b border-slate-100">
+              <span class="text-xs uppercase font-bold text-slate-400 tracking-wider">Site Navigation</span>
+            </div>
+            <a href="index.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Home
+            </a>
+            <a href="resources.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Resources & Densities
+            </a>
+            <a href="articles.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Technical Articles
+            </a>
+            <a href="about.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> About Us
+            </a>
+            <a href="contact.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Contact Us
+            </a>
+            <div class="border-t border-slate-100 my-1"></div>
+            <a href="privacy.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Privacy Policy
+            </a>
+            <a href="terms.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Terms of Service
+            </a>
+            <a href="disclaimer.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Disclaimer
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
+        <div>
+          <span class="text-xs uppercase font-mono tracking-widest text-teal-600 font-semibold block">Solid Hexagonal Cross-Section</span>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Metal Hexagonal Bar (Hex Rod) Calculator</h1>
+        </div>
+        <div class="inline-flex p-1 bg-slate-100 rounded-xl text-xs font-bold text-slate-600 self-start sm:self-auto">
+          <button id="btnMetric" onclick="setUnit('metric')" class="px-3.5 py-1.5 rounded-lg bg-white text-teal-700 shadow-sm transition-all">Metric (mm)</button>
+          <button id="btnImperial" onclick="setUnit('imperial')" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all">Imperial (inch)</button>
+        </div>
+      </div>
+
+      <!-- Technical Diagram -->
+      <div class="mb-6 bg-slate-50 border border-slate-200/80 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-around gap-6">
+        <div class="w-44 h-40 flex items-center justify-center">
+          <svg viewBox="0 0 160 160" class="w-full h-full">
+            <!-- Regular Hexagon -->
+            <polygon points="80,15 136,47 136,113 80,145 24,113 24,47" fill="#ccfbf1" stroke="#0d9488" stroke-width="2.5" stroke-linejoin="round"/>
+            <!-- Flat to Flat Dimension line -->
+            <line x1="24" y1="80" x2="136" y2="80" stroke="#0f766e" stroke-width="1.8" stroke-dasharray="3 3"/>
+            <circle cx="24" cy="80" r="3" fill="#0f766e"/>
+            <circle cx="136" cy="80" r="3" fill="#0f766e"/>
+            <text x="80" y="73" text-anchor="middle" font-size="10" font-family="monospace" fill="#0f766e" font-weight="bold">Across Flats (AF / s)</text>
+            <!-- Corner to corner faint guide -->
+            <line x1="80" y1="15" x2="80" y2="145" stroke="#99f6e4" stroke-width="1" stroke-dasharray="2 2"/>
+            <text x="83" y="138" font-size="8" font-family="monospace" fill="#115e59">Corner-to-Corner: ~1.155 &times; s</text>
+          </svg>
+        </div>
+        <div class="text-xs text-slate-600 space-y-1.5 flex-1">
+          <div class="font-bold text-slate-900 text-sm">Hex Dimension Parameters:</div>
+          <p><span class="font-mono text-teal-600 font-bold">Across Flats (AF / s):</span> The perpendicular distance between two opposing parallel flat sides (standard wrench/spanner sizing).</p>
+          <p><span class="font-mono text-teal-600 font-bold">Length (L):</span> Total length of the hexagonal bar or blank.</p>
+          <p><span class="font-mono text-slate-700 font-bold">Across Corners (AC):</span> Peak-to-peak tip diameter = <span class="font-mono">s &divide; cos(30&deg;) &approx; 1.1547 &times; s</span>.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Material & Density</label>
+          <select id="hexMat" onchange="calcHex()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+            <option value="7.85">MS / Carbon Steel (7.85 g/cm³)</option>
+            <option value="8.00">Stainless Steel 304 / 316 (8.00 g/cm³)</option>
+            <option value="8.50">Brass (8.50 g/cm³)</option>
+            <option value="2.70">Aluminium (2.70 g/cm³)</option>
+            <option value="8.96">Copper (8.96 g/cm³)</option>
+            <option value="4.51">Titanium (4.51 g/cm³)</option>
+            <option value="7.14">Zinc (7.14 g/cm³)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" id="lblAF">Across Flats - AF / Size (mm)</label>
+          <input type="number" id="hexAF" value="24" min="0.01" step="any" oninput="calcHex()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" id="lblLen">Total Length (mm)</label>
+          <input type="number" id="hexLen" value="1000" min="0.01" step="any" oninput="calcHex()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+        </div>
+
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Quantity (Pcs)</label>
+          <input type="number" id="hexQty" value="1" min="1" step="1" oninput="calcHex()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-br from-slate-900 to-teal-950 text-white rounded-2xl p-6 text-center shadow-lg">
+        <span class="text-xs uppercase text-teal-300 font-bold tracking-wider">Calculated Theoretical Hex Bar Weight</span>
+        <div class="grid grid-cols-2 gap-4 mt-3">
+          <div class="bg-white/5 rounded-xl p-3 border border-white/10">
+            <div class="text-xs text-slate-400">Total (kg)</div>
+            <div class="text-2xl sm:text-3xl font-black text-white font-mono mt-1" id="hexResultKg">~ 3.92 kg</div>
+          </div>
+          <div class="bg-white/5 rounded-xl p-3 border border-white/10">
+            <div class="text-xs text-slate-400">Total (lbs)</div>
+            <div class="text-2xl sm:text-3xl font-black text-teal-300 font-mono mt-1" id="hexResultLbs">~ 8.64 lbs</div>
+          </div>
+        </div>
+        <div class="mt-3 text-[11px] text-slate-400 font-mono" id="hexDetails">Per Piece: ~ 3.92 kg | Cross-section Area: 498.83 mm²</div>
+
+        <div class="mt-4 pt-3 border-t border-white/10 flex gap-2 justify-center">
+          <button type="button" onclick="copyHexSummary()" id="btnCopy" class="px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white rounded-xl text-xs font-bold transition-all shadow-md">
+            Copy Summary
+          </button>
+          <button type="button" onclick="window.print()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition-all">
+            Print
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- How This Calculator Works Section -->
+    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-4">
+      <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+        <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        How This Calculator Works
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        The cross-sectional area of a regular hexagon defined by distance across flats (s) is derived from equilateral triangles and geometric trigonometry:
+      </p>
+      <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 text-xs sm:text-sm font-mono text-slate-800 space-y-2">
+        <div><strong>Step 1 (Cross-Section Area):</strong> Area = (&radic;3 / 2) &times; s&sup2; &approx; 0.8660254 &times; s&sup2; mm²</div>
+        <div><strong>Step 2 (Volume cm³):</strong> (Area mm² &times; Length mm) &divide; 1,000</div>
+        <div><strong>Step 3 (Single Piece Weight kg):</strong> (Volume cm³ &times; Density g/cm³) &divide; 1,000</div>
+        <div><strong>Carbon Steel Standard Linear Weight:</strong> Weight (kg/m) &approx; 0.006798 &times; s&sup2; (where s is in mm)</div>
+      </div>
+    </div>
+
+    <!-- Reference Chart & FAQ Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200">
+        <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          Material Density Reference
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 text-slate-500 uppercase font-mono">
+              <tr>
+                <th class="p-2.5">Material</th>
+                <th class="p-2.5 text-right">Density (g/cm³)</th>
+                <th class="p-2.5 text-right">lbs/in³</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 font-mono text-slate-700">
+              <tr><td class="p-2.5 font-sans">Mild Steel / Carbon Steel</td><td class="p-2.5 text-right font-bold text-slate-900">7.85</td><td class="p-2.5 text-right">0.2836</td></tr>
+              <tr><td class="p-2.5 font-sans">Stainless Steel (304 / 316)</td><td class="p-2.5 text-right font-bold text-slate-900">8.00</td><td class="p-2.5 text-right">0.2890</td></tr>
+              <tr><td class="p-2.5 font-sans">Aluminium (6061 / 5052)</td><td class="p-2.5 text-right font-bold text-slate-900">2.70</td><td class="p-2.5 text-right">0.0975</td></tr>
+              <tr><td class="p-2.5 font-sans">Brass (C36000)</td><td class="p-2.5 text-right font-bold text-slate-900">8.50</td><td class="p-2.5 text-right">0.3071</td></tr>
+              <tr><td class="p-2.5 font-sans">Copper (Pure C11000)</td><td class="p-2.5 text-right font-bold text-slate-900">8.96</td><td class="p-2.5 text-right">0.3237</td></tr>
+              <tr><td class="p-2.5 font-sans">Titanium (Grade 5)</td><td class="p-2.5 text-right font-bold text-slate-900">4.51</td><td class="p-2.5 text-right">0.1629</td></tr>
+              <tr><td class="p-2.5 font-sans">Zinc Alloy</td><td class="p-2.5 text-right font-bold text-slate-900">7.14</td><td class="p-2.5 text-right">0.2580</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200">
+        <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Frequently Asked Questions (FAQ)
+        </h3>
+        <div class="space-y-3.5 text-xs text-slate-600">
+          <div>
+            <div class="font-bold text-slate-800">What is the difference between Across Flats (AF) and Across Corners (AC)?</div>
+            <p class="mt-0.5">Across Flats (AF) is the perpendicular width between opposite flat faces. Across Corners (AC) is the tip-to-tip diameter, which is approximately 1.1547 times the AF size.</p>
+          </div>
+          <div>
+            <div class="font-bold text-slate-800">Why are hex bars common in fastener manufacturing?</div>
+            <p class="mt-0.5">Hexagonal bars allow direct automated machining of hex bolt heads and nuts on CNC lathes with zero profile milling required, saving material and production time.</p>
+          </div>
+          <div>
+            <div class="font-bold text-slate-800">How do I calculate hex bar weight in pounds (lbs)?</div>
+            <p class="mt-0.5">Select the "Imperial (inch)" unit switch at the top. The calculator will automatically format in inches and calculate weight in lbs using density in lbs/in³.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+    <!-- Footer with All Calculator Links & Site Directory -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-12 mt-16 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-slate-800">
+        
+        <!-- Brand Info -->
+        <div class="space-y-3 md:col-span-1">
+          <div class="flex items-center space-x-2 text-white font-extrabold text-base">
+            <div class="w-7 h-7 rounded-lg bg-sky-600 flex items-center justify-center text-white">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l7 4v6l-7 4-7-4V6z"/></svg>
+            </div>
+            <span>Metaliq<span class="text-sky-400">Forge</span></span>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Universal industrial metal profile and fastener engineering suite. High-accuracy theoretical calculators for beams, plates, pipes, bars, tubes, channels, joists, and bolts.
+          </p>
+        </div>
+
+        <!-- Column 1: Calculators List (Footer Menu) -->
+        <div class="space-y-2.5 md:col-span-2">
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-200 block mb-2">Metal & Fastener Calculators</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <a href="bolt-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Hex & Allen Bolt / Studs
+            </a>
+            <a href="metal-pipe-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Pipe & Round Tube
+            </a>
+            <a href="metal-plate-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Plate & Sheet
+            </a>
+            <a href="metal-round-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Solid Round Bar / Rod
+            </a>
+            <a href="metal-square-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Square Bar
+            </a>
+            <a href="metal-hexagonal-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Hexagonal Bar (AF)
+            </a>
+            <a href="metal-angle-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Equal & Unequal Angle / L-Bar
+            </a>
+            <a href="metal-square-tube-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Square & Rectangular Box Tube
+            </a>
+            <a href="metal-channel-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Channel / C-Section (ISMC)
+            </a>
+            <a href="metal-joist-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Joist / I-Beam (ISMB)
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Legal & Navigation -->
+        <div class="space-y-2.5 md:col-span-1">
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-200 block mb-2">Navigation & Legal</span>
+          <ul class="space-y-1.5 text-xs">
+            <li><a href="resources.html" class="text-slate-300 hover:text-white transition-colors">Resources & Densities</a></li>
+            <li><a href="articles.html" class="text-slate-300 hover:text-white transition-colors">Technical Articles</a></li>
+            <li><a href="about.html" class="text-slate-300 hover:text-white transition-colors">About MetaliqForge</a></li>
+            <li><a href="contact.html" class="text-slate-300 hover:text-white transition-colors">Contact Engineering Team</a></li>
+            <li><a href="privacy.html" class="text-slate-300 hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="terms.html" class="text-slate-300 hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="disclaimer.html" class="text-slate-300 hover:text-white transition-colors">Technical Disclaimer</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="text-center sm:flex sm:justify-between sm:items-center text-slate-500 text-xs">
+        <div>&copy; <span id="currentYear">2026</span> MetaliqForge. All rights reserved.</div>
+        <div class="mt-2 sm:mt-0">Precision Theoretical Metal & Fastener Engineering Suite</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const yr = document.getElementById('currentYear');
+    if (yr) yr.textContent = new Date().getFullYear();
+    const menuBtn = document.getElementById('menuDropdownBtn');
+    const menuDropdown = document.getElementById('menuDropdownMenu');
+    if (menuBtn && menuDropdown) {
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menuDropdown.classList.toggle('hidden');
+      });
+      document.addEventListener('click', () => menuDropdown.classList.add('hidden'));
+    }
+  </script>
+
+  <script>
+    let currentUnit = 'metric';
+    const KG_TO_LBS = 2.20462262;
+
+    function setUnit(unit) {
+      if (currentUnit === unit) return;
+      currentUnit = unit;
+
+      const btnMetric = document.getElementById('btnMetric');
+      const btnImperial = document.getElementById('btnImperial');
+      const afEl = document.getElementById('hexAF');
+      const lenEl = document.getElementById('hexLen');
+
+      if (unit === 'imperial') {
+        btnImperial.className = "px-3.5 py-1.5 rounded-lg bg-white text-teal-700 shadow-sm transition-all";
+        btnMetric.className = "px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+        document.getElementById('lblAF').textContent = "Across Flats - AF (inch)";
+        document.getElementById('lblLen').textContent = "Total Length (inch)";
+
+        if (afEl.value) afEl.value = (parseFloat(afEl.value) / 25.4).toFixed(3);
+        if (lenEl.value) lenEl.value = (parseFloat(lenEl.value) / 25.4).toFixed(2);
+      } else {
+        btnMetric.className = "px-3.5 py-1.5 rounded-lg bg-white text-teal-700 shadow-sm transition-all";
+        btnImperial.className = "px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+        document.getElementById('lblAF').textContent = "Across Flats - AF / Size (mm)";
+        document.getElementById('lblLen').textContent = "Total Length (mm)";
+
+        if (afEl.value) afEl.value = (parseFloat(afEl.value) * 25.4).toFixed(1);
+        if (lenEl.value) lenEl.value = (parseFloat(lenEl.value) * 25.4).toFixed(0);
+      }
+      calcHex();
+    }
+
+    function calcHex() {
+      const density = parseFloat(document.getElementById('hexMat').value) || 7.85;
+      let af = parseFloat(document.getElementById('hexAF').value) || 0;
+      let l = parseFloat(document.getElementById('hexLen').value) || 0;
+      const qty = parseInt(document.getElementById('hexQty').value) || 1;
+
+      if (af <= 0 || l <= 0 || qty <= 0) {
+        document.getElementById('hexResultKg').textContent = '0.00 kg';
+        document.getElementById('hexResultLbs').textContent = '0.00 lbs';
+        document.getElementById('hexDetails').textContent = 'Per Piece: 0.00 kg | Cross-section Area: 0.00 mm²';
+        return;
+      }
+
+      let af_mm = af;
+      let l_mm = l;
+
+      if (currentUnit === 'imperial') {
+        af_mm = af * 25.4;
+        l_mm = l * 25.4;
+      }
+
+      // Hex cross-sectional area = (sqrt(3)/2) * s^2
+      const area_mm2 = (Math.sqrt(3) / 2.0) * Math.pow(af_mm, 2);
+      const vol_cm3 = (area_mm2 * l_mm) / 1000.0;
+      const single_kg = (vol_cm3 * density) / 1000.0;
+      const total_kg = single_kg * qty;
+      const single_lbs = single_kg * KG_TO_LBS;
+      const total_lbs = total_kg * KG_TO_LBS;
+
+      document.getElementById('hexResultKg').textContent = `~ ${total_kg.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} kg`;
+      document.getElementById('hexResultLbs').textContent = `~ ${total_lbs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} lbs`;
+      document.getElementById('hexDetails').textContent = `Per Piece: ~ ${single_kg.toFixed(2)} kg (${single_lbs.toFixed(2)} lbs) | Cross-section Area: ${area_mm2.toFixed(2)} mm²`;
+    }
+
+    function copyHexSummary() {
+      const matSelect = document.getElementById('hexMat');
+      const matName = matSelect.options[matSelect.selectedIndex].text;
+      const af = document.getElementById('hexAF').value;
+      const l = document.getElementById('hexLen').value;
+      const qty = document.getElementById('hexQty').value;
+      const unit = currentUnit === 'metric' ? 'mm' : 'inch';
+      const kg = document.getElementById('hexResultKg').textContent;
+      const lbs = document.getElementById('hexResultLbs').textContent;
+      const details = document.getElementById('hexDetails').textContent;
+
+      const summary = `MetaliqForge - Hexagonal Bar Summary:\nMaterial: ${matName}\nDimensions: AF ${af}${unit} x Length ${l}${unit}\nQuantity: ${qty} Pcs\n${details}\nTotal Weight: ${kg} / ${lbs}`;
+
+      navigator.clipboard.writeText(summary).then(() => {
+        const btn = document.getElementById('btnCopy');
+        const origText = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = origText; }, 2000);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', calcHex);
+  </script>
+  <!-- Universal Cookie Consent Banner -->
+  <div id="cookieConsentBanner" class="fixed bottom-0 inset-x-0 z-50 p-4 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-800 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4 max-w-6xl mx-auto sm:mb-4 sm:rounded-2xl transition-transform duration-300 transform translate-y-full">
+    <div class="text-xs text-slate-300 leading-relaxed">
+      We use cookies to enhance user experience, calculate theoretical loads accurately, and deliver relevant content. By using our website, you agree to our 
+      <a href="privacy.html" class="text-sky-400 hover:underline font-semibold">Privacy Policy</a> and 
+      <a href="terms.html" class="text-sky-400 hover:underline font-semibold">Terms of Service</a>.
+    </div>
+    <div class="flex items-center gap-2 flex-shrink-0">
+      <button type="button" onclick="acceptCookies()" class="bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition-all shadow-md cursor-pointer">
+        Accept All
+      </button>
+      <button type="button" onclick="dismissCookies()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2.5 rounded-xl transition-all border border-slate-700 cursor-pointer">
+        Decline
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function acceptCookies() {
+      localStorage.setItem('metaliqforge_cookie_consent', 'accepted');
+      hideCookieBanner();
+    }
+    function dismissCookies() {
+      localStorage.setItem('metaliqforge_cookie_consent', 'declined');
+      hideCookieBanner();
+    }
+    function hideCookieBanner() {
+      const banner = document.getElementById('cookieConsentBanner');
+      if (banner) banner.classList.add('translate-y-full');
+    }
+    function checkCookieConsent() {
+      const consent = localStorage.getItem('metaliqforge_cookie_consent');
+      if (!consent) {
+        setTimeout(() => {
+          const banner = document.getElementById('cookieConsentBanner');
+          if (banner) banner.classList.remove('translate-y-full');
+        }, 1000);
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkCookieConsent);
+    } else {
+      checkCookieConsent();
+    }
+  </script>
+
+</body>
+</html>

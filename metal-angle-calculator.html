@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metal Angle (L-Profile / Angle Iron) Weight Calculator | MetaliqForge</title>
+  <meta name="description" content="Calculate theoretical weight of equal and unequal metal angle bars, L-sections, and angle irons in mm or inches with instant technical breakdown.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center space-x-2.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform duration-200">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l7 4v6l-7 4-7-4V6z"/>
+            <path d="M12 16v6"/>
+            <path d="M8 18h8"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-slate-900 leading-none">
+            Metaliq<span class="text-sky-600">Forge</span>
+          </span>
+          <span class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5">INDUSTRIAL METAL WEIGHT CALCULATOR</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav & Dropdown Menu -->
+      <div class="flex items-center gap-3">
+        <nav class="hidden md:flex items-center space-x-1">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Home</a>
+          <a href="resources.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Resources</a>
+          <a href="articles.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Articles</a>
+          <a href="about.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">About Us</a>
+          <a href="contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 hover:text-sky-600 hover:bg-slate-100 transition-colors">Contact Us</a>
+        </nav>
+
+        <div class="relative">
+          <button id="menuDropdownBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all focus:outline-none">
+            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+            </svg>
+            <span>Menu</span>
+            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+
+          <div id="menuDropdownMenu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-200/80 py-2 z-50">
+            <div class="px-3 py-1.5 border-b border-slate-100">
+              <span class="text-xs uppercase font-bold text-slate-400 tracking-wider">Site Navigation</span>
+            </div>
+            <a href="index.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Home
+            </a>
+            <a href="resources.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Resources & Densities
+            </a>
+            <a href="articles.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Technical Articles
+            </a>
+            <a href="about.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> About Us
+            </a>
+            <a href="contact.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Contact Us
+            </a>
+            <div class="border-t border-slate-100 my-1"></div>
+            <a href="privacy.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Privacy Policy
+            </a>
+            <a href="terms.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Terms of Service
+            </a>
+            <a href="disclaimer.html" class="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-700 font-medium">
+              <span class="w-2 h-2 rounded-full bg-slate-300 mr-2.5"></span> Disclaimer
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-4 mb-6 gap-3">
+        <div>
+          <span class="text-xs uppercase font-mono tracking-widest text-orange-600 font-semibold block">Structural L-Profile Section</span>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">Metal Angle (L-Bar / Angle Iron) Calculator</h1>
+        </div>
+        <div class="inline-flex p-1 bg-slate-100 rounded-xl text-xs font-bold text-slate-600 self-start sm:self-auto">
+          <button id="btnMetric" onclick="setUnit('metric')" class="px-3.5 py-1.5 rounded-lg bg-white text-orange-700 shadow-sm transition-all">Metric (mm)</button>
+          <button id="btnImperial" onclick="setUnit('imperial')" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all">Imperial (inch)</button>
+        </div>
+      </div>
+
+      <!-- Technical Diagram -->
+      <div class="mb-6 bg-slate-50 border border-slate-200/80 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-around gap-6">
+        <div class="w-44 h-40 flex items-center justify-center">
+          <svg viewBox="0 0 170 170" class="w-full h-full">
+            <!-- Angle L body -->
+            <polygon points="35,25 60,25 60,115 145,115 145,140 35,140" fill="#ffedd5" stroke="#ea580c" stroke-width="2.2" stroke-linejoin="round"/>
+            <!-- Leg A dimension -->
+            <line x1="22" y1="25" x2="22" y2="140" stroke="#9a3412" stroke-width="1.5"/>
+            <line x1="17" y1="25" x2="27" y2="25" stroke="#9a3412" stroke-width="1.5"/>
+            <line x1="17" y1="140" x2="27" y2="140" stroke="#9a3412" stroke-width="1.5"/>
+            <text x="12" y="86" text-anchor="middle" font-size="11" font-family="monospace" fill="#9a3412" font-weight="bold">Leg A</text>
+            <!-- Leg B dimension -->
+            <line x1="35" y1="152" x2="145" y2="152" stroke="#9a3412" stroke-width="1.5"/>
+            <line x1="35" y1="147" x2="35" y2="157" stroke="#9a3412" stroke-width="1.5"/>
+            <line x1="145" y1="147" x2="145" y2="157" stroke="#9a3412" stroke-width="1.5"/>
+            <text x="90" y="165" text-anchor="middle" font-size="11" font-family="monospace" fill="#9a3412" font-weight="bold">Leg B</text>
+            <!-- Thickness T label -->
+            <line x1="35" y1="15" x2="60" y2="15" stroke="#ea580c" stroke-width="1.5"/>
+            <text x="47" y="12" text-anchor="middle" font-size="10" font-family="monospace" fill="#ea580c" font-weight="bold">T</text>
+          </svg>
+        </div>
+        <div class="text-xs text-slate-600 space-y-1.5 flex-1">
+          <div class="font-bold text-slate-900 text-sm">Profile Dimensions:</div>
+          <p><span class="font-mono text-orange-600 font-bold">Leg A (Flange 1):</span> Vertical leg height. Set equal to Leg B for equal angles.</p>
+          <p><span class="font-mono text-orange-600 font-bold">Leg B (Flange 2):</span> Horizontal base leg width (supports unequal angles).</p>
+          <p><span class="font-mono text-orange-600 font-bold">Thickness (T):</span> Nominal metal thickness across both flanges.</p>
+          <p><span class="font-mono text-slate-700 font-bold">Length (L):</span> Total longitudinal span of the angle bar section.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Material & Density</label>
+          <select id="angleMat" onchange="calcAngle()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all">
+            <option value="7.85">MS / Carbon Steel (7.85 g/cm³)</option>
+            <option value="8.00">Stainless Steel 304 / 316 (8.00 g/cm³)</option>
+            <option value="2.70">Aluminium (2.70 g/cm³)</option>
+            <option value="8.50">Brass (8.50 g/cm³)</option>
+            <option value="8.96">Copper (8.96 g/cm³)</option>
+            <option value="4.51">Titanium (4.51 g/cm³)</option>
+            <option value="7.14">Zinc (7.14 g/cm³)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" id="lblLegA">Leg A Dimension (mm)</label>
+          <input type="number" id="legA" value="50" min="0.01" step="any" oninput="calcAngle()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" id="lblLegB">Leg B Dimension (mm)</label>
+          <input type="number" id="legB" value="50" min="0.01" step="any" oninput="calcAngle()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" id="lblThick">Thickness - T (mm)</label>
+          <input type="number" id="angleT" value="5" min="0.01" step="any" oninput="calcAngle()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" id="lblLen">Total Length (mm)</label>
+          <input type="number" id="angleLen" value="1000" min="0.01" step="any" oninput="calcAngle()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all">
+        </div>
+
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Quantity (Pcs)</label>
+          <input type="number" id="angleQty" value="1" min="1" step="1" oninput="calcAngle()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all">
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-br from-slate-900 to-orange-950 text-white rounded-2xl p-6 text-center shadow-lg">
+        <span class="text-xs uppercase text-orange-300 font-bold tracking-wider">Calculated Theoretical Angle Weight</span>
+        <div class="grid grid-cols-2 gap-4 mt-3">
+          <div class="bg-white/5 rounded-xl p-3 border border-white/10">
+            <div class="text-xs text-slate-400">Total (kg)</div>
+            <div class="text-2xl sm:text-3xl font-black text-white font-mono mt-1" id="angleResultKg">~ 3.73 kg</div>
+          </div>
+          <div class="bg-white/5 rounded-xl p-3 border border-white/10">
+            <div class="text-xs text-slate-400">Total (lbs)</div>
+            <div class="text-2xl sm:text-3xl font-black text-orange-300 font-mono mt-1" id="angleResultLbs">~ 8.22 lbs</div>
+          </div>
+        </div>
+        <div class="mt-3 text-[11px] text-slate-400 font-mono" id="angleDetails">Per Piece: ~ 3.73 kg | Cross-section Area: 475.00 mm²</div>
+
+        <div class="mt-4 pt-3 border-t border-white/10 flex gap-2 justify-center">
+          <button type="button" onclick="copyAngleSummary()" id="btnCopy" class="px-4 py-2 bg-orange-600 hover:bg-orange-500 text-white rounded-xl text-xs font-bold transition-all shadow-md">
+            Copy Summary
+          </button>
+          <button type="button" onclick="window.print()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition-all">
+            Print
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- How This Calculator Works Section -->
+    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-4">
+      <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+        <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        How This Calculator Works
+      </h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        To calculate the true cross-sectional area of an L-profile without double-counting the corner junction, the two rectangular leg areas are combined and the overlapping square corner (T × T) is deducted:
+      </p>
+      <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 text-xs sm:text-sm font-mono text-slate-800 space-y-2">
+        <div><strong>Step 1 (Cross-Section Area):</strong> Area = (Leg A + Leg B - T) &times; T mm²</div>
+        <div><strong>Step 2 (Volume cm³):</strong> (Area mm² &times; Length mm) &divide; 1,000</div>
+        <div><strong>Step 3 (Single Piece Weight kg):</strong> (Volume cm³ &times; Density g/cm³) &divide; 1,000</div>
+        <div><strong>Step 4 (Total Batch Weight):</strong> Single Piece Weight &times; Quantity</div>
+        <div><strong>Standard Steel Metric Quick Formula:</strong> Weight (kg/m) &approx; (Leg A + Leg B - T) &times; T &times; 0.00785</div>
+      </div>
+    </div>
+
+    <!-- Technical Reference & FAQ Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200">
+        <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          Material Density Reference
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 text-slate-500 uppercase font-mono">
+              <tr>
+                <th class="p-2.5">Material</th>
+                <th class="p-2.5 text-right">Density (g/cm³)</th>
+                <th class="p-2.5 text-right">lbs/in³</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 font-mono text-slate-700">
+              <tr><td class="p-2.5 font-sans">Mild Steel / Carbon Steel</td><td class="p-2.5 text-right font-bold text-slate-900">7.85</td><td class="p-2.5 text-right">0.2836</td></tr>
+              <tr><td class="p-2.5 font-sans">Stainless Steel (304 / 316)</td><td class="p-2.5 text-right font-bold text-slate-900">8.00</td><td class="p-2.5 text-right">0.2890</td></tr>
+              <tr><td class="p-2.5 font-sans">Aluminium (6061 / 5052)</td><td class="p-2.5 text-right font-bold text-slate-900">2.70</td><td class="p-2.5 text-right">0.0975</td></tr>
+              <tr><td class="p-2.5 font-sans">Brass (C36000)</td><td class="p-2.5 text-right font-bold text-slate-900">8.50</td><td class="p-2.5 text-right">0.3071</td></tr>
+              <tr><td class="p-2.5 font-sans">Copper (Pure C11000)</td><td class="p-2.5 text-right font-bold text-slate-900">8.96</td><td class="p-2.5 text-right">0.3237</td></tr>
+              <tr><td class="p-2.5 font-sans">Titanium (Grade 5)</td><td class="p-2.5 text-right font-bold text-slate-900">4.51</td><td class="p-2.5 text-right">0.1629</td></tr>
+              <tr><td class="p-2.5 font-sans">Zinc Alloy</td><td class="p-2.5 text-right font-bold text-slate-900">7.14</td><td class="p-2.5 text-right">0.2580</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200">
+        <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Frequently Asked Questions (FAQ)
+        </h3>
+        <div class="space-y-3.5 text-xs text-slate-600">
+          <div>
+            <div class="font-bold text-slate-800">What is the difference between equal and unequal angle bars?</div>
+            <p class="mt-0.5">Equal angles have identical leg lengths (Leg A = Leg B, e.g., 50x50x5 mm). Unequal angles have different leg dimensions (e.g., 75x50x6 mm) for directional load efficiency.</p>
+          </div>
+          <div>
+            <div class="font-bold text-slate-800">Does this calculation account for root fillets?</div>
+            <p class="mt-0.5">Hot-rolled angles feature an internal corner fillet radius and toe tapers. This calculator uses sharp-edge theoretical formulas, accurate within &plusmn;1% to 2% of actual rolling mill weight.</p>
+          </div>
+          <div>
+            <div class="font-bold text-slate-800">How do I calculate per-meter or per-foot weight?</div>
+            <p class="mt-0.5">Simply enter 1000 mm (1 meter) in Metric mode, or 12 inches (1 foot) in Imperial mode to get the immediate linear weight specification.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+    <!-- Footer with All Calculator Links & Site Directory -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-12 mt-16 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-slate-800">
+        
+        <!-- Brand Info -->
+        <div class="space-y-3 md:col-span-1">
+          <div class="flex items-center space-x-2 text-white font-extrabold text-base">
+            <div class="w-7 h-7 rounded-lg bg-sky-600 flex items-center justify-center text-white">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l7 4v6l-7 4-7-4V6z"/></svg>
+            </div>
+            <span>Metaliq<span class="text-sky-400">Forge</span></span>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Universal industrial metal profile and fastener engineering suite. High-accuracy theoretical calculators for beams, plates, pipes, bars, tubes, channels, joists, and bolts.
+          </p>
+        </div>
+
+        <!-- Column 1: Calculators List (Footer Menu) -->
+        <div class="space-y-2.5 md:col-span-2">
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-200 block mb-2">Metal & Fastener Calculators</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <a href="bolt-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Hex & Allen Bolt / Studs
+            </a>
+            <a href="metal-pipe-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Pipe & Round Tube
+            </a>
+            <a href="metal-plate-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Plate & Sheet
+            </a>
+            <a href="metal-round-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Solid Round Bar / Rod
+            </a>
+            <a href="metal-square-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Metal Square Bar
+            </a>
+            <a href="metal-hexagonal-bar-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Hexagonal Bar (AF)
+            </a>
+            <a href="metal-angle-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Equal & Unequal Angle / L-Bar
+            </a>
+            <a href="metal-square-tube-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Square & Rectangular Box Tube
+            </a>
+            <a href="metal-channel-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Channel / C-Section (ISMC)
+            </a>
+            <a href="metal-joist-calculator.html" class="text-slate-300 hover:text-sky-400 transition-colors flex items-center gap-1.5">
+              <span class="text-sky-500">&rsaquo;</span> Joist / I-Beam (ISMB)
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2: Legal & Navigation -->
+        <div class="space-y-2.5 md:col-span-1">
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-200 block mb-2">Navigation & Legal</span>
+          <ul class="space-y-1.5 text-xs">
+            <li><a href="resources.html" class="text-slate-300 hover:text-white transition-colors">Resources & Densities</a></li>
+            <li><a href="articles.html" class="text-slate-300 hover:text-white transition-colors">Technical Articles</a></li>
+            <li><a href="about.html" class="text-slate-300 hover:text-white transition-colors">About MetaliqForge</a></li>
+            <li><a href="contact.html" class="text-slate-300 hover:text-white transition-colors">Contact Engineering Team</a></li>
+            <li><a href="privacy.html" class="text-slate-300 hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="terms.html" class="text-slate-300 hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="disclaimer.html" class="text-slate-300 hover:text-white transition-colors">Technical Disclaimer</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="text-center sm:flex sm:justify-between sm:items-center text-slate-500 text-xs">
+        <div>&copy; <span id="currentYear">2026</span> MetaliqForge. All rights reserved.</div>
+        <div class="mt-2 sm:mt-0">Precision Theoretical Metal & Fastener Engineering Suite</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const yr = document.getElementById('currentYear');
+    if (yr) yr.textContent = new Date().getFullYear();
+    const menuBtn = document.getElementById('menuDropdownBtn');
+    const menuDropdown = document.getElementById('menuDropdownMenu');
+    if (menuBtn && menuDropdown) {
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menuDropdown.classList.toggle('hidden');
+      });
+      document.addEventListener('click', () => menuDropdown.classList.add('hidden'));
+    }
+  </script>
+
+  <script>
+    let currentUnit = 'metric';
+    const KG_TO_LBS = 2.20462262;
+
+    function setUnit(unit) {
+      if (currentUnit === unit) return;
+      currentUnit = unit;
+
+      const btnMetric = document.getElementById('btnMetric');
+      const btnImperial = document.getElementById('btnImperial');
+      const aEl = document.getElementById('legA');
+      const bEl = document.getElementById('legB');
+      const tEl = document.getElementById('angleT');
+      const lenEl = document.getElementById('angleLen');
+
+      if (unit === 'imperial') {
+        btnImperial.className = "px-3.5 py-1.5 rounded-lg bg-white text-orange-700 shadow-sm transition-all";
+        btnMetric.className = "px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+        document.getElementById('lblLegA').textContent = "Leg A Dimension (inch)";
+        document.getElementById('lblLegB').textContent = "Leg B Dimension (inch)";
+        document.getElementById('lblThick').textContent = "Thickness - T (inch)";
+        document.getElementById('lblLen').textContent = "Total Length (inch)";
+
+        if (aEl.value) aEl.value = (parseFloat(aEl.value) / 25.4).toFixed(3);
+        if (bEl.value) bEl.value = (parseFloat(bEl.value) / 25.4).toFixed(3);
+        if (tEl.value) tEl.value = (parseFloat(tEl.value) / 25.4).toFixed(3);
+        if (lenEl.value) lenEl.value = (parseFloat(lenEl.value) / 25.4).toFixed(2);
+      } else {
+        btnMetric.className = "px-3.5 py-1.5 rounded-lg bg-white text-orange-700 shadow-sm transition-all";
+        btnImperial.className = "px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+        document.getElementById('lblLegA').textContent = "Leg A Dimension (mm)";
+        document.getElementById('lblLegB').textContent = "Leg B Dimension (mm)";
+        document.getElementById('lblThick').textContent = "Thickness - T (mm)";
+        document.getElementById('lblLen').textContent = "Total Length (mm)";
+
+        if (aEl.value) aEl.value = (parseFloat(aEl.value) * 25.4).toFixed(1);
+        if (bEl.value) bEl.value = (parseFloat(bEl.value) * 25.4).toFixed(1);
+        if (tEl.value) tEl.value = (parseFloat(tEl.value) * 25.4).toFixed(1);
+        if (lenEl.value) lenEl.value = (parseFloat(lenEl.value) * 25.4).toFixed(0);
+      }
+      calcAngle();
+    }
+
+    function calcAngle() {
+      const density = parseFloat(document.getElementById('angleMat').value) || 7.85;
+      let a = parseFloat(document.getElementById('legA').value) || 0;
+      let b = parseFloat(document.getElementById('legB').value) || 0;
+      let t = parseFloat(document.getElementById('angleT').value) || 0;
+      let l = parseFloat(document.getElementById('angleLen').value) || 0;
+      const qty = parseInt(document.getElementById('angleQty').value) || 1;
+
+      if (a <= 0 || b <= 0 || t <= 0 || l <= 0 || qty <= 0 || t >= a || t >= b) {
+        document.getElementById('angleResultKg').textContent = '0.00 kg';
+        document.getElementById('angleResultLbs').textContent = '0.00 lbs';
+        if ((t >= a || t >= b) && (a > 0 && b > 0)) {
+          document.getElementById('angleDetails').textContent = 'Error: Thickness (T) must be less than both Leg A and Leg B.';
+        } else {
+          document.getElementById('angleDetails').textContent = 'Per Piece: 0.00 kg | Cross-section Area: 0.00 mm²';
+        }
+        return;
+      }
+
+      let a_mm = a;
+      let b_mm = b;
+      let t_mm = t;
+      let l_mm = l;
+
+      if (currentUnit === 'imperial') {
+        a_mm = a * 25.4;
+        b_mm = b * 25.4;
+        t_mm = t * 25.4;
+        l_mm = l * 25.4;
+      }
+
+      const area_mm2 = (a_mm + b_mm - t_mm) * t_mm;
+      const vol_cm3 = (area_mm2 * l_mm) / 1000.0;
+      const single_kg = (vol_cm3 * density) / 1000.0;
+      const total_kg = single_kg * qty;
+      const single_lbs = single_kg * KG_TO_LBS;
+      const total_lbs = total_kg * KG_TO_LBS;
+
+      document.getElementById('angleResultKg').textContent = `~ ${total_kg.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} kg`;
+      document.getElementById('angleResultLbs').textContent = `~ ${total_lbs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} lbs`;
+      document.getElementById('angleDetails').textContent = `Per Piece: ~ ${single_kg.toFixed(2)} kg (${single_lbs.toFixed(2)} lbs) | Cross-section Area: ${area_mm2.toFixed(2)} mm²`;
+    }
+
+    function copyAngleSummary() {
+      const matSelect = document.getElementById('angleMat');
+      const matName = matSelect.options[matSelect.selectedIndex].text;
+      const a = document.getElementById('legA').value;
+      const b = document.getElementById('legB').value;
+      const t = document.getElementById('angleT').value;
+      const l = document.getElementById('angleLen').value;
+      const qty = document.getElementById('angleQty').value;
+      const unit = currentUnit === 'metric' ? 'mm' : 'inch';
+      const kg = document.getElementById('angleResultKg').textContent;
+      const lbs = document.getElementById('angleResultLbs').textContent;
+      const details = document.getElementById('angleDetails').textContent;
+
+      const summary = `MetaliqForge - Metal Angle L-Profile Summary:\nMaterial: ${matName}\nDimensions: Leg A ${a}${unit} x Leg B ${b}${unit} x T ${t}${unit} x Length ${l}${unit}\nQuantity: ${qty} Pcs\n${details}\nTotal Weight: ${kg} / ${lbs}`;
+
+      navigator.clipboard.writeText(summary).then(() => {
+        const btn = document.getElementById('btnCopy');
+        const origText = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = origText; }, 2000);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', calcAngle);
+  </script>
+  <!-- Universal Cookie Consent Banner -->
+  <div id="cookieConsentBanner" class="fixed bottom-0 inset-x-0 z-50 p-4 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-800 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4 max-w-6xl mx-auto sm:mb-4 sm:rounded-2xl transition-transform duration-300 transform translate-y-full">
+    <div class="text-xs text-slate-300 leading-relaxed">
+      We use cookies to enhance user experience, calculate theoretical loads accurately, and deliver relevant content. By using our website, you agree to our 
+      <a href="privacy.html" class="text-sky-400 hover:underline font-semibold">Privacy Policy</a> and 
+      <a href="terms.html" class="text-sky-400 hover:underline font-semibold">Terms of Service</a>.
+    </div>
+    <div class="flex items-center gap-2 flex-shrink-0">
+      <button type="button" onclick="acceptCookies()" class="bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition-all shadow-md cursor-pointer">
+        Accept All
+      </button>
+      <button type="button" onclick="dismissCookies()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2.5 rounded-xl transition-all border border-slate-700 cursor-pointer">
+        Decline
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function acceptCookies() {
+      localStorage.setItem('metaliqforge_cookie_consent', 'accepted');
+      hideCookieBanner();
+    }
+    function dismissCookies() {
+      localStorage.setItem('metaliqforge_cookie_consent', 'declined');
+      hideCookieBanner();
+    }
+    function hideCookieBanner() {
+      const banner = document.getElementById('cookieConsentBanner');
+      if (banner) banner.classList.add('translate-y-full');
+    }
+    function checkCookieConsent() {
+      const consent = localStorage.getItem('metaliqforge_cookie_consent');
+      if (!consent) {
+        setTimeout(() => {
+          const banner = document.getElementById('cookieConsentBanner');
+          if (banner) banner.classList.remove('translate-y-full');
+        }, 1000);
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkCookieConsent);
+    } else {
+      checkCookieConsent();
+    }
+  </script>
+
+</body>
+</html>
